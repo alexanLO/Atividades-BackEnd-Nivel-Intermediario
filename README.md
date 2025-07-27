@@ -14,6 +14,8 @@ Este repositório contém exercícios e desafios práticos para consolidar os t�
 
 ## 1. 🔁 Java Avançado — Streams, Optionals, Exceptions 
 
+[here] https://alexanol.atlassian.net/browse/ES-1
+
 ### 🔸 Exercícios Streams
 - [ ] [✔️] **Exercício: Análise de Pedidos de Clientes**  
       📂 Pasta: `Java_Avancado/Streams`  
