@@ -38,4 +38,3 @@ Este repositório contém exercícios e desafios práticos para consolidar os t�
 ## ✍️ Anotações e Aprendizados
 
 Use esta seção para registrar insights, erros comuns, ou dicas:
-
