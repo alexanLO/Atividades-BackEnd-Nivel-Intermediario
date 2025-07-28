@@ -1,0 +1,13 @@
+{
+    "java.project.sourcePaths": ["src"],
+    "java.project.outputPath": "bin",
+    "java.project.referencedLibraries": [
+        "lib/**/*.jar"
+    ],
+    "folder-color.pathColors": [
+        {
+            "folderPath": "Exceptions\\src\\exception\\",
+            "color": "foldercolorizer.color_cc0000"
+        }
+    ]
+}
