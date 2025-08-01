@@ -33,6 +33,12 @@ Este repositório contém exercícios e desafios práticos para consolidar os t�
 📂 Pasta: `Java_Avancado/Exceptions`
 ✅ Tópicos: `try/catch`, `throws`, `finally`, exceções personalizadas (`extends Exception`)
 📝 Descrição: Desenvolver um sistema de transferência entre contas com validações e uso de exceções como SaldoInsuficienteException, ContaInvalidaException, e ValorInvalidoException.
+
+### 🔸 Exercícios CompletableFuture
+- [x] [✔️] **Desafio: Sistema de Envio de E-mails Assíncronos**
+📂 Pasta: `Java_Avancado/CompletableFuture`
+✅ Tópicos: `CompletableFuture`, `programação assíncrona`, `exceptionally`, `orTimeout`
+📝 Descrição:  Desenvolver um sistema assíncrono que envia e-mails simulando tempos variáveis de envio e possíveis falhas, como endereço inválido. Utilizar CompletableFuture.supplyAsync() e encadeamentos para tratamento de erros. Medir tempo total e imprimir resultados detalhados de sucesso e falha.
 ---
 
 ## ✍️ Anotações e Aprendizados

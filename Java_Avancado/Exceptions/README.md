@@ -1,13 +1,12 @@
- Desafio – Sistema de Transferência Bancária com Exceções
 ## Desafio – Sistema de Transferência Bancária com Exceções
 
 ### Objetivo
 
 Implementar um sistema de transferência entre contas bancárias com tratamento robusto de exceções, lidando com erros comuns como:
 
-- Saldo insuficiente
-- Conta inválida
-- Valor de transferência inválido
+1. Saldo insuficiente
+2. Conta inválida
+3. Valor de transferência inválido
 
 **Você deverá usar:**
 
