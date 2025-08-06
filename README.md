@@ -1,3 +1,48 @@
+## 🚀 **Nível Intermediário (Consolidação)**
+Guia de tudo que foi estudado e descrição dos desáfios práticos.
+
+### 1. **Java Profissional**
+
+- Domine:
+    - Streams API `ok`
+    - Lambdas
+    - Generics
+    - Concurrency (ExecutorService, Future, CompletableFuture) `ok`
+    - Tratamento de erros com boas práticas `ok`
+
+### 2. **Spring & Ecossistema**
+
+- Spring Boot (starter packs, autoconfiguração)
+- Spring MVC (REST controllers, interceptors, filters)
+- Spring Data JPA (JPQL, projections, specifications)
+- Spring Security (autenticação JWT + autorização RBAC)
+- Spring Validation
+- Spring AOP (boas práticas de logging, auditoria)
+
+### 3. **Banco de Dados**
+
+- SQL avançado (joins complexos, índices, transações)
+- JPA/Hibernate:
+    - Lazy vs Eager
+    - N+1 problem
+    - Ciclo de vida da entidade
+- Flyway ou Liquibase (versionamento de schema)
+
+### 4. **Testes**
+
+- JUnit 5 (mock, parametrizado, nested)
+- Mockito
+- Testcontainers para testes de integração com banco
+- Spring Boot Test
+
+### 5. **Ferramentas e Práticas**
+
+- Git (branches, rebase, merge requests)
+- Docker (build de imagens, containers com PostgreSQL)
+- Postman/Insomnia
+- Integração com Swagger/OpenAPI
+
+
 # 🧪 Java Backend Roadmap - Atividades Práticas
 
 Este repositório contém exercícios e desafios práticos para consolidar os tópicos do roadmap de estudo Java Backend. Cada seção está organizada com checklists para acompanhamento do progresso.
