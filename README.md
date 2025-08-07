@@ -4,11 +4,11 @@ Guia de tudo que foi estudado e descrição dos desáfios práticos.
 ### 1. **Java Profissional**
 
 - Domine:
-    - Streams API `ok`
+    - Streams API
     - Lambdas
     - Generics
-    - Concurrency (ExecutorService, Future, CompletableFuture) `ok`
-    - Tratamento de erros com boas práticas `ok`
+    - Concurrency (ExecutorService, Future, CompletableFuture)
+    - Tratamento de erros com boas práticas
 
 ### 2. **Spring & Ecossistema**
 
@@ -43,9 +43,9 @@ Guia de tudo que foi estudado e descrição dos desáfios práticos.
 - Integração com Swagger/OpenAPI
 
 
-# 🧪 Java Backend Roadmap - Atividades Práticas
+# 🧪 Java Backend - Atividades Práticas
 
-Este repositório contém exercícios e desafios práticos para consolidar os tópicos do roadmap de estudo Java Backend. Cada seção está organizada com checklists para acompanhamento do progresso.
+Este repositório contém exercícios e desafios práticos para consolidar os tópicos de estudo Java Backend. Cada seção está organizada com checklists para acompanhamento do progresso.
 
 ---
 
@@ -57,9 +57,7 @@ Este repositório contém exercícios e desafios práticos para consolidar os t�
 
 ---
 
-## 1. 🔁 Java Avançado — Streams, Optionals, Exceptions e CompletableFuture.
-
-[here] https://alexanol.atlassian.net/browse/ES-1
+## 1. 🔁 Java Profissional — Streams, Optionals, Exceptions, CompletableFuture, Lambda e Generics.
 
 ### 🔸 Exercícios Streams
 - [x] [✔️] **Exercício: Análise de Pedidos de Clientes**  
@@ -86,25 +84,23 @@ Este repositório contém exercícios e desafios práticos para consolidar os t�
 📝 Descrição:  Desenvolver um sistema assíncrono que envia e-mails simulando tempos variáveis de envio e possíveis falhas, como endereço inválido. Utilizar CompletableFuture.supplyAsync() e encadeamentos para tratamento de erros. Medir tempo total e imprimir resultados detalhados de sucesso e falha.
 ---
 
-## 1. 🔁 Spring MVC (REST controllers, interceptors, filters)
+## 2. 🔁 Spring & Ecossistema
+
+### 1. Spring Boot (starter packs, autoconfiguração)
+
+### 🔸 Exercícios Spring Boot – Starter Pack & AutoConfig
+- [x] [✔️] Exercício: Monitoramento e Logs com Starter Packs
+📂 Pasta: `spring-ecossistema`
+✅ Tópicos: `starter packs`, `autoconfiguração`, `Spring Boot Actuator`, `logs`, `info endpoint`, `application.properties`
+📝 Descrição: Criar uma aplicação Spring Boot utilizando apenas starter packs e autoconfiguração para expor informações de saúde, métricas e dados do sistema.
+
+### 2. Spring MVC (REST controllers, interceptors, filters)
 
 ### 🔸 Exercícios Spring MVC – REST Controller
 - [] [✔️] Exercício: API de Gerenciamento de Tarefas (To-Do List)
 📂 Pasta: `editar`
 ✅ Tópicos: `@RestController`, `@RequestMapping`, `@GetMapping`, `@PostMapping`, `@PutMapping`, `@PatchMapping`, `@DeleteMapping`, `@PathVariable`, `@RequestBody`, `enum`
-📝 Descrição: Criar uma API REST para gerenciar tarefas contendo os seguintes recursos:
-1. Criar tarefa (POST /api/tarefas)
-2. Listar todas as tarefas (GET /api/tarefas)
-3. Buscar tarefa por ID (GET /api/tarefas/{id})
-4. Atualizar tarefa inteira (PUT /api/tarefas/{id})
-5. Alterar apenas o status (PATCH /api/tarefas/{id}/status)
-6. Deletar tarefa (DELETE /api/tarefas/{id})
-7. Usar enum para status (PENDENTE, EM_ANDAMENTO, CONCLUIDA)
-8. Armazenar dados temporariamente em List<Tarefa> sem banco de dados.
-📌 Critérios:
-* Retornar códigos HTTP adequados (201, 200, 404, 400).
-* Validar campos obrigatórios (titulo, status).
-* Utilizar boas práticas de organização de código no Spring Boot.
+📝 Descrição: Desenvolver uma API REST para gerenciar tarefas com operações CRUD, alteração de status via PATCH, validação de campos obrigatórios e uso de enum para status. Os dados devem ser armazenados temporariamente em uma List<Tarefa>, sem uso de banco de dados. A API deve retornar os códigos HTTP apropriados e seguir boas práticas com Spring Boot.
 
 ### 🔸 Exercícios Spring MVC – Interceptor
 - [] [✔️] Exercício: Interceptor de Log e Autenticação
