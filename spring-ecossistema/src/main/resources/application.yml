@@ -1,0 +1,42 @@
+# ===============================
+# Configuração da aplicação
+# ===============================
+info:
+  app:
+    name: "@project.name@"
+    description: "@project.description@"
+    version: "@project.version@"
+
+# ===============================
+# Configuração do servidor
+# ===============================
+# Porta onde o servidor irá rodar
+server:
+  port: 9090
+
+# ===============================
+# Configuração de logs
+# ===============================
+# Nível de log para as classes do Spring Framework (INFO, DEBUG, ERROR, etc.)
+logging:
+  level:
+    ROOT: INFO
+
+management:
+  endpoints:
+    #Desabilita todos os Endpoints do Actuator
+    access:
+      default: NONE
+    web:
+      #Mudando o path do actuador de /actuator/<endpoint-actuator> para /<endpoint-actuator>
+      base-path: /
+      exposure:
+        #Habilita apenas esses endpoints
+        include: "health, info, metrics" # evite expor metrics publicamente
+  endpoint:
+    health:
+      access: READ_ONLY
+    info:
+      access: READ_ONLY
+    metrics:
+      access: NONE
