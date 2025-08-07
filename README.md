@@ -84,7 +84,9 @@ Este repositório contém exercícios e desafios práticos para consolidar os t�
 📝 Descrição:  Desenvolver um sistema assíncrono que envia e-mails simulando tempos variáveis de envio e possíveis falhas, como endereço inválido. Utilizar CompletableFuture.supplyAsync() e encadeamentos para tratamento de erros. Medir tempo total e imprimir resultados detalhados de sucesso e falha.
 ---
 
-## 2. 🔁 Spring & Ecossistema
+## 2. 🌱 Spring & Ecossistema
+
+**Obs:** Nestas atividades do Spring & Ecossistema não seram separar por pastas igual as atividades do Java Profissional, elas seram separadas por commits.
 
 ### 1. Spring Boot (starter packs, autoconfiguração)
 
@@ -97,16 +99,10 @@ Este repositório contém exercícios e desafios práticos para consolidar os t�
 ### 2. Spring MVC (REST controllers, interceptors, filters)
 
 ### 🔸 Exercícios Spring MVC – REST Controller
-- [] [✔️] Exercício: API de Gerenciamento de Tarefas (To-Do List)
-📂 Pasta: `editar`
-✅ Tópicos: `@RestController`, `@RequestMapping`, `@GetMapping`, `@PostMapping`, `@PutMapping`, `@PatchMapping`, `@DeleteMapping`, `@PathVariable`, `@RequestBody`, `enum`
-📝 Descrição: Desenvolver uma API REST para gerenciar tarefas com operações CRUD, alteração de status via PATCH, validação de campos obrigatórios e uso de enum para status. Os dados devem ser armazenados temporariamente em uma List<Tarefa>, sem uso de banco de dados. A API deve retornar os códigos HTTP apropriados e seguir boas práticas com Spring Boot.
-
-### 🔸 Exercícios Spring MVC – Interceptor
-- [] [✔️] Exercício: Interceptor de Log e Autenticação
-📂 Pasta: `Java_Avancado/SpringMVC/Interceptor`
-✅ Tópicos: `HandlerInterceptor`, `preHandle`, `afterCompletion`, `WebMvcConfigurer`, `interceptação de requisições HTTP`, `autenticação com token`
-📝 Descrição: Criar um interceptor que registre informações detalhadas de cada requisição (endpoint, método HTTP, IP do cliente, tempo de execução) e valide autenticação via token presente no cabeçalho Authorization. O interceptor deve bloquear requisições sem token ou com token inválido, retornando 401 Unauthorized, e ser configurado para ignorar rotas /login e /public/**.
+- [] [✔️] Exercício: API de Gerenciamento de Tarefas
+📂 Pasta: `spring-ecossistema`
+✅ Tópicos: `@RestController`, `@RequestMapping`, `@PathVariable`, `@RequestBody`, `HTTP status`
+📝 Descrição: Criar uma API REST para gerenciar tarefas com operações de CRUD, uso de enum para status e armazenamento temporário em memória.
 
 ## ✍️ Anotações e Aprendizados
 
