@@ -2,7 +2,7 @@ package com.alexan.spring_ecossistema.controller.dto;
 
 import java.time.LocalDateTime;
 
-import com.enums.EnumStatus;
+import com.alexan.spring_ecossistema.enums.EnumStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.validation.constraints.NotBlank;

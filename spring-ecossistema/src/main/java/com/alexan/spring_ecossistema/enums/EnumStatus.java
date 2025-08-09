@@ -1,4 +1,4 @@
-package com.enums;
+package com.alexan.spring_ecossistema.enums;
 
 public enum EnumStatus {
 

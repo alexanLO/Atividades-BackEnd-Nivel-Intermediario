@@ -13,5 +13,5 @@
 
     <logger name="org.springframework" level="WARN"/>
     <logger name="org.hibernate" level="ERROR"/>
-    <logger name="com.example" level="DEBUG"/>
+    <logger name="com.alexan" level="DEBUG"/>
 </configuration>
