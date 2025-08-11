@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.info.BuildProperties;
 import org.springframework.stereotype.Service;
 
-import com.alexan.spring_ecossistema.controller.dto.SystemInfoResponse;
+import com.alexan.spring_ecossistema.model.dto.SystemInfoResponse;
 
 @Service
 public class InfoService {

@@ -19,8 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alexan.spring_ecossistema.config.RequestInterceptor;
-import com.alexan.spring_ecossistema.controller.dto.AlterarUser;
-import com.alexan.spring_ecossistema.controller.dto.User;
+import com.alexan.spring_ecossistema.model.dto.AlterarUser;
+import com.alexan.spring_ecossistema.model.dto.User;
 import com.alexan.spring_ecossistema.service.UserService;
 
 @RestController

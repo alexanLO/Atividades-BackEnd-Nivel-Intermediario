@@ -40,3 +40,9 @@ management:
       access: READ_ONLY
     metrics:
       access: NONE
+
+http:
+  encoding:
+    charset: UTF-8
+    enabled: true
+    force: true

@@ -1,8 +1,8 @@
-package com.alexan.spring_ecossistema.controller.dto;
+package com.alexan.spring_ecossistema.model.dto;
 
 import java.time.LocalDateTime;
 
-import com.alexan.spring_ecossistema.enums.EnumStatus;
+import com.alexan.spring_ecossistema.model.enums.EnumStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.validation.constraints.NotBlank;

@@ -10,9 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.alexan.spring_ecossistema.controller.dto.AlterarUser;
-import com.alexan.spring_ecossistema.controller.dto.User;
-import com.alexan.spring_ecossistema.enums.EnumStatus;
+import com.alexan.spring_ecossistema.model.dto.AlterarUser;
+import com.alexan.spring_ecossistema.model.dto.User;
+import com.alexan.spring_ecossistema.model.enums.EnumStatus;
 
 @Service
 public class UserService {
