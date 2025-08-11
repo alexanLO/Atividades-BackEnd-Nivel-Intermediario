@@ -23,6 +23,8 @@ import com.alexan.spring_ecossistema.model.dto.AlterarUser;
 import com.alexan.spring_ecossistema.model.dto.User;
 import com.alexan.spring_ecossistema.service.UserService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("v1/users")
 public class UserController {
@@ -33,7 +35,7 @@ public class UserController {
     private UserService service;
 
     @PostMapping
-    public ResponseEntity<Void> register(@Validated @RequestBody User request) {
+    public ResponseEntity<Void> register(@RequestBody @Valid User request) {
         log.info("Registering a new user.");
 
         service.register(request);
@@ -53,7 +55,7 @@ public class UserController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateUser(@PathVariable Long id, @Validated @RequestBody AlterarUser request) {
+    public ResponseEntity<Void> updateUser(@PathVariable Long id, @RequestBody @Valid AlterarUser request) {
         log.info("updating user data: id = " + id);
 
         service.updateUser(id, request);

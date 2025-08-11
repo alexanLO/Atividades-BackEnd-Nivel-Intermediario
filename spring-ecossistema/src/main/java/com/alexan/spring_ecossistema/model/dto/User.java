@@ -3,17 +3,22 @@ package com.alexan.spring_ecossistema.model.dto;
 import java.time.LocalDateTime;
 
 import com.alexan.spring_ecossistema.model.enums.EnumStatus;
+import com.alexan.spring_ecossistema.validator.ValidEmailCorp;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 public class User {
 
     private Long id;
     @NotBlank(message = "Nome e obrigatorio.")
+    @Size(min = 3, max = 50, message = "Nome deve ter entre 3 e 50 caracteres")
     private String name;
-    @NotBlank(message = "Email e obrigatorio.")
+    @ValidEmailCorp
     private String email;
+    @NotNull(message = "Status é obrigatório")
     private EnumStatus status;
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime creationDate;
@@ -49,7 +54,7 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
- 
+
     public EnumStatus getStatus() {
         return status;
     }

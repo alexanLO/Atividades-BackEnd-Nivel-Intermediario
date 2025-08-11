@@ -99,10 +99,31 @@ Este repositório contém exercícios e desafios práticos para consolidar os t�
 ### 2. Spring MVC (REST controllers, interceptors, filters)
 
 ### 🔸 Exercícios Spring MVC – REST Controller
-- [] [✔️] Exercício: API de Gerenciamento de Tarefas
+- [x] [✔️] Exercício: API de Gerenciamento de Tarefas
 📂 Pasta: `spring-ecossistema`
 ✅ Tópicos: `@RestController`, `@RequestMapping`, `@PathVariable`, `@RequestBody`, `HTTP status`
 📝 Descrição: Criar uma API REST para gerenciar tarefas com operações de CRUD, uso de enum para status e armazenamento temporário em memória.
+
+### 🔸 Desafio: Interceptor de Requisições HTTP
+- [x] [✔️]
+📂 Pasta: `spring-ecossistema`
+✅ Tópicos: `HandlerInterceptor`, `preHandle`, `afterCompletion`, `log de requisição`, `tempo de execução`
+📝 Descrição: Criar um interceptor que registre logs no início e no fim de cada requisição HTTP, exibindo URI, método, timestamp e tempo de execução.
+
+### 🔸 Desafio Prático – Filtro de Requisições HTTP
+- [x] [✔️]
+📂 Pasta: Spring/Filters
+✅ Tópicos: `Filter`, `FilterChain`, `ServletRequest/Response`, `headers`, `validação de token`, `log`
+📝 Descrição: Criar um filtro que registre informações da requisição (timestamp, método, URI, IP do cliente) e bloqueie requisições que não contenham o header X-Auth-Token com o valor esperado.
+--- 
+
+### 3. Validation
+
+### 🔸 Desafio Prático – Validação com Spring Validation
+- [x] [✔️]
+📂 Pasta: Spring/Validation
+✅ Tópicos: `@Valid`, `@NotNull`, `@Email`, `@Size`, `@Pattern`, `BindingResult`, `ExceptionHandler`
+📝 Descrição: Adicionar validações nos campos da entidade User usando anotações do Bean Validation. Garantir que o nome não seja vazio, o e-mail seja válido e o status seja obrigatório. Em caso de erro de validação, retornar mensagens claras no corpo da resposta com código HTTP 400.
 
 ## ✍️ Anotações e Aprendizados
 
