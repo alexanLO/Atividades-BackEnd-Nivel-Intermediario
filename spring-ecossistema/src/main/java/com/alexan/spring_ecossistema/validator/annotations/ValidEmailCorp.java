@@ -1,11 +1,11 @@
-package com.alexan.spring_ecossistema.validator;
+package com.alexan.spring_ecossistema.validator.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.alexan.spring_ecossistema.validator.constraints.EmailValidator;
+import com.alexan.spring_ecossistema.validator.EmailValidator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
@@ -15,7 +15,9 @@ import jakarta.validation.Payload;
 @Constraint(validatedBy = EmailValidator.class)
 public @interface ValidEmailCorp {
 
-      String message() default "O email deve ser empresarial, exemplo: exemplo@Empresa.com";
-    Class<?>[] groups() default {};
-    Class<? extends Payload>[] payload() default {};
+  String message() default "Email inválido para cadastro corporativo.";
+
+  Class<?>[] groups() default {};
+
+  Class<? extends Payload>[] payload() default {};
 }

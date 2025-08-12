@@ -1,6 +1,6 @@
-package com.alexan.spring_ecossistema.validator.constraints;
+package com.alexan.spring_ecossistema.validator;
 
-import com.alexan.spring_ecossistema.validator.ValidEmailCorp;
+import com.alexan.spring_ecossistema.validator.annotations.ValidEmailCorp;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;

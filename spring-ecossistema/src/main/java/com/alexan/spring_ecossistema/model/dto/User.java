@@ -3,7 +3,7 @@ package com.alexan.spring_ecossistema.model.dto;
 import java.time.LocalDateTime;
 
 import com.alexan.spring_ecossistema.model.enums.EnumStatus;
-import com.alexan.spring_ecossistema.validator.ValidEmailCorp;
+import com.alexan.spring_ecossistema.validator.annotations.ValidEmailCorp;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.validation.constraints.NotBlank;

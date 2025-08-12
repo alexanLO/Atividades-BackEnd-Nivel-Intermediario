@@ -22,6 +22,7 @@ import com.alexan.spring_ecossistema.config.RequestInterceptor;
 import com.alexan.spring_ecossistema.model.dto.AlterarUser;
 import com.alexan.spring_ecossistema.model.dto.User;
 import com.alexan.spring_ecossistema.service.UserService;
+import com.alexan.spring_ecossistema.validator.annotations.Auditable;
 
 import jakarta.validation.Valid;
 
@@ -35,6 +36,7 @@ public class UserController {
     private UserService service;
 
     @PostMapping
+    @Auditable(action = "Registering a new user")
     public ResponseEntity<Void> register(@RequestBody @Valid User request) {
         log.info("Registering a new user.");
 

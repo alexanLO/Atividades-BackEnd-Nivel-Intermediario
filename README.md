@@ -112,7 +112,7 @@ Este repositório contém exercícios e desafios práticos para consolidar os t�
 
 ### 🔸 Desafio Prático – Filtro de Requisições HTTP
 - [x] [✔️]
-📂 Pasta: Spring/Filters
+📂 Pasta: `spring-ecossistema`
 ✅ Tópicos: `Filter`, `FilterChain`, `ServletRequest/Response`, `headers`, `validação de token`, `log`
 📝 Descrição: Criar um filtro que registre informações da requisição (timestamp, método, URI, IP do cliente) e bloqueie requisições que não contenham o header X-Auth-Token com o valor esperado.
 --- 
@@ -121,9 +121,15 @@ Este repositório contém exercícios e desafios práticos para consolidar os t�
 
 ### 🔸 Desafio Prático – Validação com Spring Validation
 - [x] [✔️]
-📂 Pasta: Spring/Validation
+📂 Pasta: `spring-ecossistema`
 ✅ Tópicos: `@Valid`, `@NotNull`, `@Email`, `@Size`, `@Pattern`, `BindingResult`, `ExceptionHandler`
 📝 Descrição: Adicionar validações nos campos da entidade User usando anotações do Bean Validation. Garantir que o nome não seja vazio, o e-mail seja válido e o status seja obrigatório. Em caso de erro de validação, retornar mensagens claras no corpo da resposta com código HTTP 400.
+
+### 🔸 Desafio Prático – Auditoria e Logging com Spring AOP
+- [x] [✔️]
+📂 Pasta: `spring-ecossistema`
+✅ Tópicos: `@Aspect`, `@Before`, `@AfterReturning`, `@Around`, `@Annotation`, `JoinPoint`, `ProceedingJoinPoint`, `Logs`, `Auditoria`
+📝 Descrição: Implementar um aspecto com @Aspect para registrar logs e auditoria em métodos de controllers e services. Usar a anotação personalizada @Auditable para indicar ações sensíveis (como criação, atualização e exclusão), registrando usuário, ação, entidade e tempo de execução automaticamente no terminal.
 
 ## ✍️ Anotações e Aprendizados
 

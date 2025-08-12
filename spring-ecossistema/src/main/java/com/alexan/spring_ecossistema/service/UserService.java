@@ -13,6 +13,7 @@ import org.springframework.web.server.ResponseStatusException;
 import com.alexan.spring_ecossistema.model.dto.AlterarUser;
 import com.alexan.spring_ecossistema.model.dto.User;
 import com.alexan.spring_ecossistema.model.enums.EnumStatus;
+import com.alexan.spring_ecossistema.validator.annotations.Auditable;
 
 @Service
 public class UserService {
@@ -20,6 +21,7 @@ public class UserService {
     List<User> users = new ArrayList<>();
     private Long idCount = 1L;
 
+    @Auditable(action = "Registering a new user")
     public void register(User request) {
         request.setId(idCount++);
         request.setCreationDate(LocalDateTime.now());
