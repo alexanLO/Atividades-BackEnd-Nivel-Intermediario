@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alexan.spring_ecossistema.controller.dto.SystemInfoResponse;
+import com.alexan.spring_ecossistema.controller.dto.responses.SystemInfoResponse;
 import com.alexan.spring_ecossistema.service.impl.InfoServiceImpl;
 
 @RestController

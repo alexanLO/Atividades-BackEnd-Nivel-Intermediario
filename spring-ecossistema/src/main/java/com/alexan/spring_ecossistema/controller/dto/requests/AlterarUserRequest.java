@@ -1,10 +1,10 @@
-package com.alexan.spring_ecossistema.controller.dto;
+package com.alexan.spring_ecossistema.controller.dto.requests;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
-public class AlterarUser {
+public class AlterarUserRequest {
 
     @NotBlank(message = "Nome e obrigatorio.")
     @Size(min = 3, max = 50, message = "Nome deve ter entre 3 e 50 caracteres")
@@ -13,7 +13,7 @@ public class AlterarUser {
     @NotBlank(message = "Email e obrigatorio.")
     private String email;
 
-    public AlterarUser(String name, String email) {
+    public AlterarUserRequest(String name, String email) {
         this.name = name;
         this.email = email;
     }

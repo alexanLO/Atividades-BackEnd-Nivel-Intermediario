@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -18,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alexan.spring_ecossistema.controller.dto.AlterarUser;
-import com.alexan.spring_ecossistema.controller.dto.User;
+import com.alexan.spring_ecossistema.controller.dto.requests.AlterarUserRequest;
+import com.alexan.spring_ecossistema.controller.dto.requests.UserRequest;
 import com.alexan.spring_ecossistema.interceptor.RequestInterceptor;
 import com.alexan.spring_ecossistema.service.impl.UserServiceImpl;
 import com.alexan.spring_ecossistema.validator.annotations.Auditable;
@@ -37,7 +36,7 @@ public class UserController {
 
     @PostMapping
     @Auditable(action = "Registering a new user")
-    public ResponseEntity<Void> register(@RequestBody @Valid User request) {
+    public ResponseEntity<Void> register(@RequestBody @Valid UserRequest request) {
         log.info("Registering a new user.");
 
         service.register(request);
@@ -45,19 +44,19 @@ public class UserController {
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> findAll() {
+    public ResponseEntity<List<UserRequest>> findAll() {
         log.info("Searching for all users");
         return ResponseEntity.status(HttpStatus.OK).body(service.listing());
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> findById(@PathVariable Long id) {
+    public ResponseEntity<UserRequest> findById(@PathVariable Long id) {
         log.info("Searching user by id: " + id);
         return ResponseEntity.status(HttpStatus.OK).body(service.findById(id));
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> updateUser(@PathVariable Long id, @RequestBody @Valid AlterarUser request) {
+    public ResponseEntity<Void> updateUser(@PathVariable Long id, @RequestBody @Valid AlterarUserRequest request) {
         log.info("updating user data: id = " + id);
 
         service.updateUser(id, request);
