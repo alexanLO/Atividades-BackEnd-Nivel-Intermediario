@@ -1,4 +1,4 @@
-package com.alexan.spring_ecossistema.exceptions.response;
+package com.alexan.spring_ecossistema.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -24,7 +24,6 @@ public class ApiValidationErrorResponse implements ApiSubErrorResponse {
         this.object = object;
         this.message = message;
     }
-
 
     public String getObject() {
         return object;

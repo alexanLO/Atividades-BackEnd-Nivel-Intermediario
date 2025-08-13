@@ -1,4 +1,4 @@
-package com.alexan.spring_ecossistema.model.dto;
+package com.alexan.spring_ecossistema.controller.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

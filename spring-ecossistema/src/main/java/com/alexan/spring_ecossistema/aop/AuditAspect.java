@@ -81,7 +81,12 @@ public class AuditAspect {
             return "sem id";
         }
     }
-
+    /**
+     * Tenta converter uma String para Long, retornando null se falhar.
+     *
+     * @param id a String a ser convertida
+     * @return o Long convertido ou null se a conversão falhar
+     */      
     private Long tryParseId(String id) {
         try {
             return Long.parseLong(id);

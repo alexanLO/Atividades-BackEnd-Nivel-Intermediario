@@ -6,8 +6,10 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.alexan.spring_ecossistema.interceptor.RequestInterceptor;
+
 @Configuration
-public class WebMvcConfig implements WebMvcConfigurer{
+public class WebMvcConfig implements WebMvcConfigurer {
 
     @Autowired
     private RequestInterceptor requestInterceptor;

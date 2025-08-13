@@ -1,33 +1,8 @@
 package com.alexan.spring_ecossistema.service;
 
-import java.net.InetAddress;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import com.alexan.spring_ecossistema.controller.dto.SystemInfoResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.info.BuildProperties;
-import org.springframework.stereotype.Service;
+public interface InfoService {
 
-import com.alexan.spring_ecossistema.model.dto.SystemInfoResponse;
-
-@Service
-public class InfoService {
-
-    @Autowired
-    private BuildProperties buildProperties;
-
-    public SystemInfoResponse getInfo() {
-
-        try {
-            return new SystemInfoResponse(buildProperties.getName(),
-                    buildProperties.getVersion(),
-                    System.getProperty("java.version"),
-                    LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")),
-                    InetAddress.getLocalHost().getHostAddress());
-
-        } catch (Exception e) {
-            throw new RuntimeException("Error: " + e.getMessage());
-        }
-
-    }
+    public SystemInfoResponse getInfo();
 }

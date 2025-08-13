@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import com.alexan.spring_ecossistema.validator.EmailValidator;
+import com.alexan.spring_ecossistema.validator.impl.EmailValidator;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

@@ -9,15 +9,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alexan.spring_ecossistema.model.dto.SystemInfoResponse;
-import com.alexan.spring_ecossistema.service.InfoService;
+import com.alexan.spring_ecossistema.controller.dto.SystemInfoResponse;
+import com.alexan.spring_ecossistema.service.impl.InfoServiceImpl;
 
 @RestController
 @RequestMapping("/api/info")
 public class InfoController {
 
     @Autowired
-    private InfoService service;
+    private InfoServiceImpl service;
     private Logger LOGGER = LoggerFactory.getLogger(InfoController.class);
 
     @GetMapping

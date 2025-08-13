@@ -1,4 +1,4 @@
-package com.alexan.spring_ecossistema.exceptions;
+package com.alexan.spring_ecossistema.exceptions.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -6,7 +6,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import com.alexan.spring_ecossistema.exceptions.response.ApiErrorResponse;
+import com.alexan.spring_ecossistema.exceptions.ApiErrorResponse;
 
 @ControllerAdvice
 public class BusinessExceptionHandler {

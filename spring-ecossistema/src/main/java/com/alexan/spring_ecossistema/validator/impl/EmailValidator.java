@@ -1,4 +1,4 @@
-package com.alexan.spring_ecossistema.validator;
+package com.alexan.spring_ecossistema.validator.impl;
 
 import com.alexan.spring_ecossistema.validator.annotations.ValidEmailCorp;
 

@@ -1,4 +1,4 @@
-package com.alexan.spring_ecossistema.config;
+package com.alexan.spring_ecossistema.interceptor;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,8 +23,9 @@ public class RequestInterceptor implements HandlerInterceptor {
             @NonNull Object handler) throws Exception {
 
         request.setAttribute("startTime", System.currentTimeMillis());
-        log.info("[INICIO]" + "[" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + "] "
-                + request.getRequestURI() + " " + request.getMethod());
+        log.info(
+                "[INICIO]" + "[" + LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss")) + "] "
+                        + request.getRequestURI() + " " + request.getMethod());
 
         return true;
     }

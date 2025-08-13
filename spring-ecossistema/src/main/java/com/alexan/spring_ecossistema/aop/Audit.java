@@ -21,7 +21,7 @@ public class Audit {
     }
 
     public Audit(String nameUser) {
-       this.nameUser = nameUser;
+        this.nameUser = nameUser;
     }
 
     public String getNameUser() {

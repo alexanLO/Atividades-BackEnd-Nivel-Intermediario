@@ -1,4 +1,4 @@
-package com.alexan.spring_ecossistema.exceptions.response;
+package com.alexan.spring_ecossistema.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
@@ -8,8 +8,8 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
  */
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = ApiValidationErrorResponse.class, name = "validação"),
-        @JsonSubTypes.Type(value = ApiSubErrorResponse.class, name = "negocio")
+                @JsonSubTypes.Type(value = ApiValidationErrorResponse.class, name = "validação"),
+                @JsonSubTypes.Type(value = ApiSubErrorResponse.class, name = "negocio")
 })
 public interface ApiSubErrorResponse {
 }
