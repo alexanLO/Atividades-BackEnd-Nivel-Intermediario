@@ -1,6 +1,13 @@
 package com.alexan.spring_ecossistema.controller.dto.requests;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.alexan.spring_ecossistema.model.enums.EnumStatus;
 import com.alexan.spring_ecossistema.model.enums.RoleEnum;
@@ -12,7 +19,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-public class UserRequest {
+//TODO o UserDetails deve mudar para entidade User
+public class UserRequest implements UserDetails {
 
     private Long id;
     @NotBlank(message = "Nome e obrigatorio.")
@@ -29,8 +37,10 @@ public class UserRequest {
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime creationDate;
     @NotNull(message = "Role é obrigatório")
-    @Pattern(regexp = "ADMIN|USER", message = "Role deve ser ADMIN ou USER")
     private RoleEnum role;
+
+    public UserRequest() {
+    }
 
     public UserRequest(Long id, String name, String email, String password, EnumStatus status,
             LocalDateTime creationDate, RoleEnum role) {
@@ -103,5 +113,22 @@ public class UserRequest {
 
     public void setRole(RoleEnum role) {
         this.role = role;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        if (this.role == RoleEnum.ADMIN) {
+            authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        } else {
+            authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
+        }
+        return authorities;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
     }
 }

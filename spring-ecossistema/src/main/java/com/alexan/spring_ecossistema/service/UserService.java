@@ -1,7 +1,8 @@
 package com.alexan.spring_ecossistema.service;
 
 import java.util.List;
-import java.util.Optional;
+
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.alexan.spring_ecossistema.controller.dto.requests.AlterarUserRequest;
 import com.alexan.spring_ecossistema.controller.dto.requests.UserRequest;
@@ -22,6 +23,6 @@ public interface UserService {
 
     public UserRequest findByLogin(String string);
 
-    public Optional<UserRequest> findByEmail(String username);
+    public UserDetails findByEmail(String username);
 
 }

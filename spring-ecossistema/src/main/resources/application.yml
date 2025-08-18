@@ -10,39 +10,54 @@ info:
 # ===============================
 # Configuração do servidor
 # ===============================
-# Porta onde o servidor irá rodar
 server:
-  port: 9090
+  port: 9090 # Porta onde o servidor irá rodar
 
 # ===============================
 # Configuração de logs
 # ===============================
-# Nível de log para as classes do Spring Framework (INFO, DEBUG, ERROR, etc.)
-logging:
+logging: # Nível de log para as classes do Spring Framework (INFO, DEBUG, ERROR, etc.)
   level:
     ROOT: INFO
 
-management:
+#=============================================
+# Configuração do Actuator
+#=============================================
+management: 
   endpoints:
-    #Desabilita todos os Endpoints do Actuator
     access:
-      default: NONE
+      default: NONE #Desabilita todos os Endpoints do Actuator
     web:
-      #Mudando o path do actuador de /actuator/<endpoint-actuator> para /<endpoint-actuator>
-      base-path: /
+      base-path: / #Mudando o path do actuador de /actuator/<endpoint-actuator> para /<endpoint-actuator>
       exposure:
-        #Habilita apenas esses endpoints
-        include: "health, info, metrics" # evite expor metrics publicamente
-  endpoint:
-    health:
-      access: READ_ONLY
+        # Exposição dos endpoints do Actuator
+        # A configuração abaixo expõe apenas os endpoints de health, info e metrics
+        # e desabilita a exposição pública de metrics
+        # Para expor outros endpoints, adicione-os à lista
+        # Exemplo: exposure.include: "health, info, metrics, env"
+        include: "health, info, metrics"
+  endpoint: 
+    health: 
+      access: READ_ONLY 
     info:
-      access: READ_ONLY
+      access: READ_ONLY 
     metrics:
-      access: NONE
+      access: NONE 
 
-http:
-  encoding:
-    charset: UTF-8
-    enabled: true
-    force: true
+
+# ===============================
+# Configuração do security JWT
+# ===============================
+jwt:
+  security:
+    token:
+      secret: ${JWT_SECRET:my-secret-key} # Chave secreta para assinar o token JWT
+      expiration: 3600000 # Tempo de expiração do token em milissegundos
+      header: Authorization # Nome do cabeçalho HTTP onde o token JWT será enviado
+      prefix: Bearer # Prefixo do token JWT no cabeçalho HTTP
+      issuer: @project.name@ # Emissor do token JWT 
+      roles: # Papéis permitidos no token JWT
+        ADMIN
+        USER
+
+# ===============================

@@ -4,29 +4,37 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.alexan.spring_ecossistema.controller.dto.requests.AlterarUserRequest;
 import com.alexan.spring_ecossistema.controller.dto.requests.UserRequest;
 import com.alexan.spring_ecossistema.model.enums.EnumStatus;
+import com.alexan.spring_ecossistema.model.enums.RoleEnum;
 import com.alexan.spring_ecossistema.service.UserService;
 import com.alexan.spring_ecossistema.validator.annotations.Auditable;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    List<UserRequest> users = new ArrayList<>();
+    // Simulando um banco de dados com uma lista em memória
+    List<UserRequest> users = new ArrayList<>(List.of(
+            new UserRequest(1L, "Cleiton Nascimento", "cleitinho@Empresa.com", new BCryptPasswordEncoder().encode(
+                    "senhaSegura"), EnumStatus.ATIVO, LocalDateTime.now(), RoleEnum.ADMIN),
+            new UserRequest(2L, "Maria Silva", "mari@Empresa.com", new BCryptPasswordEncoder().encode(
+                    "senhaSegura"), EnumStatus.ATIVO, LocalDateTime.now(), RoleEnum.USER)));
     private Long idCount = 1L;
 
     @Auditable(action = "Registering a new user")
     public void register(UserRequest request) {
         request.setId(idCount++);
         request.setCreationDate(LocalDateTime.now());
+        request.setPassword(new BCryptPasswordEncoder().encode(request.getPassword()));
         users.add(request);
     }
 
@@ -65,10 +73,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Optional<UserRequest> findByEmail(String username) {
+    public UserDetails findByEmail(String username) {
         return users.stream()
                 .filter(u -> u.getEmail().equals(username))
                 .findFirst()
-                .map(user -> new UserRequest(user.getEmail(), user.getPassword(), user.getRole()));
+                .map(user -> new UserRequest(user.getEmail(), user.getPassword(), user.getRole())).get();
     }
 }

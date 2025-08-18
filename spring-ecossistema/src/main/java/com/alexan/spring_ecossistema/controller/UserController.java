@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alexan.spring_ecossistema.controller.dto.requests.AlterarUserRequest;
 import com.alexan.spring_ecossistema.controller.dto.requests.UserRequest;
 import com.alexan.spring_ecossistema.interceptor.RequestInterceptor;
-import com.alexan.spring_ecossistema.service.impl.UserServiceImpl;
+import com.alexan.spring_ecossistema.service.UserService;
 import com.alexan.spring_ecossistema.validator.annotations.Auditable;
 
 import jakarta.validation.Valid;
@@ -32,7 +32,7 @@ public class UserController {
     private static final Logger log = LoggerFactory.getLogger(RequestInterceptor.class);
 
     @Autowired
-    private UserServiceImpl service;
+    private UserService service;
 
     @PostMapping
     @Auditable(action = "Registering a new user")
