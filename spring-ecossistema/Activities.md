@@ -477,4 +477,121 @@ src/main/java/com/seuprojeto/
 - JWT validado em todas as requisições autenticadas
 - Acesso negado para usuários sem permissão correta
 
+
+
+
+# 🔸 Desafio Prático – SQL Avançado no Projeto de Gerenciamento de Usuários
+
+Neste desafio, você deve aplicar conhecimentos de SQL avançado ao seu projeto atual. O foco será em:
+Joins complexos para relatórios e consultas personalizadas
+Criação de índices para otimização de desempenho
+Execução de transações com controle explícito
+Versionamento dos scripts SQL no repositório Git
+
+## 🎯 Objetivo
+
+Você irá criar um conjunto de scripts SQL que definem, populam e consultam as tabelas envolvidas no gerenciamento de usuários. Também deve garantir que esses scripts estejam organizados e versionados corretamente no seu projeto.
+
+## 🛠️ Instruções
+
+1. **Estrutura de Diretórios**
+
+No seu projeto Java com Spring Boot, crie a seguinte estrutura:
+
+```text
+src/
+└── main/
+    └── resources/
+        └── db/
+            └── migration/
+                V1__create_schema.sql
+                V2__insert_seed.sql
+                V3__complex_queries.sql
+```
+
+`OBS`: Mesmo sem usar Flyway agora, essa estrutura facilita o versionamento e futura automação.
+
+2. **Script V1 – Schema**
+
+Crie o script V1__create_schema.sql com as tabelas abaixo:
+
+`users:`
+
+- id (PK)
+- username (único)
+- email
+- password
+- role (ex: ADMIN, USER)
+- created_at
+
+`profiles:`
+
+- id (PK)
+- user_id (FK para users.id)
+- bio
+- avatar_url
+
+`login_attempts:`
+
+- id (PK)
+- user_id (FK para users.id)
+- attempt_time
+- success (boolean)
+
+**Requisitos:**
+
+- Use FOREIGN KEY adequadamente
+- Defina pelo menos um índice composto que faça sentido (ex: para busca rápida de tentativas de login por usuário + data)
+
+3. **Script V2 – Dados Falsos (Seed)**
+
+Crie o script V2__insert_seed.sql com pelo menos:
+
+- 3 usuários (ADMIN e USER)
+- 3 perfis correspondentes
+- 5 tentativas de login (sucessos e falhas)
+- Use instruções SQL claras e comentadas.
+
+4. **Script V3 – Consultas Avançadas**
+
+Crie consultas SQL que:
+
+- Retornem usuários com mais de 2 tentativas de login falhas nos últimos 7 dias
+- Listem todos os usuários com seus perfis (usando JOIN)
+- Contem o número de tentativas de login por usuário (com LEFT JOIN)
+- Mostrem usuários e a data da última tentativa de login (use JOIN + MAX)
+- Usem CASE WHEN para exibir status de login baseado em última tentativa
+
+`OBS`: **Não copie diretamente da internet. Comente seu raciocínio no próprio SQL.**
+
+5. **Transações**
+
+Crie um bloco de transação que:
+
+- Insere um novo usuário
+- Insere seu perfil
+- Simula uma tentativa de login bem-sucedida
+- Se algum passo falhar, nada deve ser persistido.
+- Use comandos como:
+
+```sql
+BEGIN;
+-- comandos
+COMMIT;
+-- ou ROLLBACK em caso de erro
+```
+
+## ✅ Entregáveis
+
+- Scripts .sql criados na pasta /resources/db/migration
+- Código versionado no GitHub (não subir o banco em si, apenas scripts)
+- Um README explicando como rodar os scripts manualmente (em DBeaver, pgAdmin, etc)
+- (Opcional) Configurar o Flyway no projeto e ativar execução automática ao rodar a aplicação
+
+## 📚 Dicas
+
+- Você pode testar os scripts usando seu próprio banco de desenvolvimento local
+- Use EXPLAIN ANALYZE para checar performance se quiser aprofundar
+- Se usar Flyway, não precisa criar tabelas manualmente — ele controla as versões para você
+
 # proxima atividade

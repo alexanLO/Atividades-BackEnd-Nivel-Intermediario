@@ -61,3 +61,11 @@ jwt:
         USER
 
 # ===============================
+# Configuração do Banco de Dados Oracle
+#================================
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@localhost:1521:XEPDB1
+    username: admin
+    password: admin
+    driver-class-name: oracle.jdbc.OracleDriver

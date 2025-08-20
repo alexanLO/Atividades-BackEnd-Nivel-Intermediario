@@ -1,0 +1,32 @@
+{"properties": [
+  {
+    "name": "jwt.security.token.secret",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.security.token.secret'"
+  },
+  {
+    "name": "jwt.security.token.expiration",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.security.token.expiration'"
+  },
+  {
+    "name": "jwt.security.token.header",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.security.token.header'"
+  },
+  {
+    "name": "jwt.security.token.prefix",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.security.token.prefix'"
+  },
+  {
+    "name": "jwt.security.token.issuer",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.security.token.issuer'"
+  },
+  {
+    "name": "jwt.security.token.roles",
+    "type": "java.lang.String",
+    "description": "A description for 'jwt.security.token.roles'"
+  }
+]}
