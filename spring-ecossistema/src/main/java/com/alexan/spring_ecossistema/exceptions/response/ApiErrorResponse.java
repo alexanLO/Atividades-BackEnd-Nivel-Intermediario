@@ -1,4 +1,4 @@
-package com.alexan.spring_ecossistema.exceptions;
+package com.alexan.spring_ecossistema.exceptions.response;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

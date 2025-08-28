@@ -65,7 +65,26 @@ jwt:
 #================================
 spring:
   datasource:
-    url: jdbc:oracle:thin:@localhost:1521:XEPDB1
+    url: jdbc:oracle:thin:@localhost:1521/XEPDB1
     username: admin
     password: admin
     driver-class-name: oracle.jdbc.OracleDriver
+
+#==============================
+# Configuração do JPA e Hibernate
+#==============================
+  jpa:
+      hibernate:
+        ddl-auto: update # Atualiza o esquema do banco de dados automaticamente
+        show-sql: true # Exibe as consultas SQL no console
+      properties:
+        hibernate:
+          dialect: org.hibernate.dialect.OracleDialect #Dialeto do banco de dados Oracle
+          format-sql: true # Formata as consultas SQL exibidas no console
+          use-sql-comments: true # Adiciona comentários às consultas SQL
+      database-platform: org.hibernate.dialect.OracleDialect # Dialeto do banco de dados Oracle
+      open-in-view: false # Desabilita o Open EntityManager in View para evitar problemas de LazyInitializationException
+      generate-ddl: true # Gera o DDL (Data Definition Language) para o banco de dados
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl # Estratégia de nomenclatura física padrão do Hibernate
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl # Estratégia de nomenclatura implícita legada do JPA

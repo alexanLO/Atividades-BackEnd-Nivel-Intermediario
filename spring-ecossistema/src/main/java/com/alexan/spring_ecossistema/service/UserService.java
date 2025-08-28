@@ -1,28 +1,26 @@
 package com.alexan.spring_ecossistema.service;
 
 import java.util.List;
+import java.util.UUID;
 
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.data.domain.Pageable;
 
-import com.alexan.spring_ecossistema.controller.dto.requests.AlterarUserRequest;
-import com.alexan.spring_ecossistema.controller.dto.requests.UserRequest;
+import com.alexan.spring_ecossistema.model.User;
 
 public interface UserService {
 
-    public void register(UserRequest request);
+    public UUID register(User request);
 
-    public List<UserRequest> listing();
+    public User findByEmail(String username);
 
-    public UserRequest findById(Long id);
+    public List<User> listingAll(Pageable pageable);
 
-    public void updateUser(Long id, AlterarUserRequest request);
+    public User searchingById(UUID id);
 
-    public void updateStatus(Long id, String status);
+    public void updateUser(UUID id, User request);
 
-    public void deleteUser(Long id);
+    public void deleteUser(UUID id);
 
-    public UserRequest findByLogin(String string);
-
-    public UserDetails findByEmail(String username);
+    public List<User> searchingAllWithProfileAndAttempts(Pageable pageable);
 
 }

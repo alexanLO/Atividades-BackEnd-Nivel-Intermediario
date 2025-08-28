@@ -1,4 +1,4 @@
-package com.alexan.spring_ecossistema.exceptions;
+package com.alexan.spring_ecossistema.exceptions.response;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;

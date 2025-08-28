@@ -594,4 +594,123 @@ COMMIT;
 - Use EXPLAIN ANALYZE para checar performance se quiser aprofundar
 - Se usar Flyway, não precisa criar tabelas manualmente — ele controla as versões para você
 
+# 🔸 Desafio Prático – JPA/Hibernate Intermediário no Projeto de Gerenciamento de Usuários
+
+Neste desafio, você deve aplicar conceitos intermediários de JPA e Hibernate no seu projeto. O foco será em:
+
+- Mapeamento de relacionamentos (`@OneToMany`, `@OneToOne`, `@ManyToOne`)  
+- Carregamento `LAZY` vs `EAGER` e suas implicações
+- Resolução do problema de **N+1**
+- Callbacks do ciclo de vida das entidades
+- Integração com auditoria usando `@Auditable` (caso tenha feito o desafio anterior)
+
+## 🎯 Objetivo
+
+Você irá modelar relacionamentos reais entre entidades do sistema, otimizar o carregamento de dados com `JOIN FETCH`, e usar os callbacks do ciclo de vida das entidades para realizar auditoria e logging automático.
+
+## 🛠️ Instruções
+
+### 1. **Estrutura de Entidades**
+
+No seu projeto Spring Boot, implemente (ou ajuste) as seguintes entidades com JPA:
+
+#### `User` (existente)
+
+- `id`
+- `username`
+- `email`
+- `password`  
+- `role`
+- `createdAt`
+
+- **Relacionamentos**:
+
+  - `@OneToOne(mappedBy = "user") Profile`
+  - `@OneToMany(mappedBy = "user") List<LoginAttempt>`
+  - `@OneToMany(mappedBy = "user") List<AuditLog>`
+
+#### `Profile`
+
+- `id`  
+- `bio`
+- `avatarUrl`  
+- `birthDate`  
+- `@OneToOne`  
+- `@JoinColumn(name = "user_id")`  
+
+#### `LoginAttempt` (existente)
+
+- `id`
+- `attemptTime`
+- `success`
+- `@ManyToOne`
+- `@JoinColumn(name = "user_id")`
+
+#### `AuditLog`
+
+- `id`
+- `entidade`
+- `acao`
+- `dataExecucao`
+- `dadosAnteriores`
+- `dadosNovos`
+- `@ManyToOne`
+- `@JoinColumn(name = "user_id")`
+
+### 2. **Carregamento EAGER vs LAZY**
+
+- Configure `LoginAttempt` e `AuditLog` como `LAZY`
+- Configure `Profile` como `EAGER` (ou `LAZY` para testar diferença)
+
+**Teste o comportamento:**
+
+- Crie endpoints para buscar `User` com e sem fetch dos relacionamentos
+- Use `@Query` com `JOIN FETCH` para resolver `LazyInitializationException` e N+1
+
+Exemplo:
+
+```java
+@Query("SELECT u FROM User u LEFT JOIN FETCH u.profile LEFT JOIN FETCH u.loginAttempts") 
+List<User> findAllWithProfileAndAttempts();
+```
+
+### 3. **Callbacks do Ciclo de Vida**
+
+Implemente os métodos nas entidades que devem ser auditadas:
+
+```java
+@PrePersist  public  void  prePersist() {
+    log.info("[AUDIT] Novo usuário criado: {}", this.username);} 
+@PostUpdate  public  void  postUpdate() {
+    log.info("[AUDIT] Usuário atualizado: {}", this.username);} 
+@PostLoad  public  void  postLoad() {
+    log.debug("[DEBUG] Usuário carregado: {}", this.username);}
+```
+
+### 4. **Auditoria via Aspect (opcional, se já fez o desafio anterior)**
+
+Se você já tem o aspecto `@Auditable`, estenda ele para salvar dados antigos e novos no `AuditLog`.
+Exemplo de uso da anotação:
+
+```java
+@Auditable(action = "CREATE_USER", entity = "User")  
+public User createUser(UserRequest req) {...}` 
+```
+
+## ✅ Entregáveis
+
+- Entidades mapeadas corretamente com relacionamentos
+- Uso de `FetchType.LAZY` e `FetchType.EAGER` consciente 
+- Controller ou Service com queries otimizadas (`JOIN FETCH`)
+- Uso dos callbacks de entidade (`@PrePersist`, `@PostUpdate`, etc)
+- (Opcional) Integração com o aspecto `@Auditable` para log de ações sensíveis
+- Código versionado no GitHub no mesmo projeto `spring-ecossistema`
+
+## 📚 Dicas
+
+- Teste `LAZY` e `EAGER` manualmente acessando os endpoints
+- Use o log de SQL para ver o número de queries geradas
+- Simule o problema N+1 em uma lista e corrija com `JOIN FETCH`
+- Use `EntityManager.detach()` ou `@Transactional(readOnly = true)` se quiser explorar mais
+
 # proxima atividade

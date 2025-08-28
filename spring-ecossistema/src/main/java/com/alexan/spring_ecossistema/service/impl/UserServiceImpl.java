@@ -1,82 +1,94 @@
 package com.alexan.spring_ecossistema.service.impl;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
-import com.alexan.spring_ecossistema.controller.dto.requests.AlterarUserRequest;
-import com.alexan.spring_ecossistema.controller.dto.requests.UserRequest;
-import com.alexan.spring_ecossistema.model.enums.EnumStatus;
-import com.alexan.spring_ecossistema.model.enums.RoleEnum;
+import com.alexan.spring_ecossistema.exceptions.NotFoundException;
+import com.alexan.spring_ecossistema.model.User;
+import com.alexan.spring_ecossistema.repository.UserRepository;
+import com.alexan.spring_ecossistema.repository.entity.UserEntity;
+import com.alexan.spring_ecossistema.repository.mapper.EntityMapper;
 import com.alexan.spring_ecossistema.service.UserService;
 import com.alexan.spring_ecossistema.validator.annotations.Auditable;
 
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    // Simulando um banco de dados com uma lista em memória
-    List<UserRequest> users = new ArrayList<>(List.of(
-            new UserRequest(1L, "Cleiton Nascimento", "cleitinho@Empresa.com", new BCryptPasswordEncoder().encode(
-                    "senhaSegura"), EnumStatus.ATIVO, LocalDateTime.now(), RoleEnum.ADMIN),
-            new UserRequest(2L, "Maria Silva", "mari@Empresa.com", new BCryptPasswordEncoder().encode(
-                    "senhaSegura"), EnumStatus.ATIVO, LocalDateTime.now(), RoleEnum.USER)));
-    private Long idCount = 1L;
+    private final UserRepository repository;
 
-    @Auditable(action = "Registering a new user")
-    public void register(UserRequest request) {
-        request.setId(idCount++);
-        request.setCreationDate(LocalDateTime.now());
-        request.setPassword(new BCryptPasswordEncoder().encode(request.getPassword()));
-        users.add(request);
-    }
+    private final EntityMapper mapper;
 
-    public List<UserRequest> listing() {
-        return users.stream()
-                .sorted(Comparator.comparing(UserRequest::getId))
-                .collect(Collectors.toList());
-    }
+    @Transactional
+    @Auditable(action = "Registrando um novo usuário")
+    public UUID register(User request) {
 
-    public UserRequest findById(Long id) {
-        return users.stream().filter(u -> u.getId().equals(id))
-                .findFirst()
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario não encontrado"));
-    }
+        UserEntity user = repository.findByFullName(request.getFullName());
 
-    public void updateUser(Long id, AlterarUserRequest request) {
-        UserRequest user = findById(id);
-        user.setName(request.getName());
-        user.setEmail(request.getEmail());
-    }
+        if (user != null) {
+            throw new RuntimeException("Usuario já existe com id: " + user.getId());
+        }
 
-    public void updateStatus(Long id, String status) {
-        UserRequest user = findById(id);
-        user.setStatus(EnumStatus.fromString(status));
-    }
-
-    public void deleteUser(Long id) {
-        users.removeIf(u -> u.getId().equals(id));
-    }
-
-    public UserRequest findByLogin(String string) {
-        return users.stream()
-                .filter(u -> u.getEmail().equals(string))
-                .findFirst()
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario não encontrado"));
+        return repository.save(mapper.toEntitySave(request)).getId();
     }
 
     @Override
-    public UserDetails findByEmail(String username) {
-        return users.stream()
-                .filter(u -> u.getEmail().equals(username))
-                .findFirst()
-                .map(user -> new UserRequest(user.getEmail(), user.getPassword(), user.getRole())).get();
+    @Auditable(action = "Listando todos os usuários")
+    public List<User> listingAll(Pageable pageable) {
+        return mapper.toModelList(repository.findAll(pageable));
     }
+
+    @Override
+    @Auditable(action = "Buscando usuário por ID")
+    public User searchingById(UUID id) {
+        return mapper
+                .toModel(repository.findById(id).orElseThrow(() -> new NotFoundException("Usuario nao encontrado.")));
+    }
+
+    @Override
+    @Transactional
+    @Auditable(action = "Atualizando usuário")
+    public void updateUser(UUID id, User request) {
+        repository.findById(id).map(entity -> {
+            mapper.updateEntityUser(request, entity);
+            return repository.save(entity);
+        }).orElseThrow(() -> new NotFoundException("Usuario nao encontrado."));
+
+    }
+
+    @Override
+    @Transactional
+    @Auditable(action = "Deletando usuário")
+    public void deleteUser(UUID id) {
+        repository.findById(id).map(entity -> {
+            repository.delete(entity);
+            return Void.TYPE;
+        }).orElseThrow(() -> new RuntimeException("Usuario nao encontrado."));
+    }
+
+    @Override
+    @Auditable(action = "Buscando usuário por email")
+    public User findByEmail(String username) {
+
+        return mapper.toModel(repository.findByEmailWithAttempts(username)
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario nao encontrado.")));
+    }
+
+    @Override
+    public List<User> searchingAllWithProfileAndAttempts(Pageable pageable) {
+        Page<UserEntity> page = repository.findAll(pageable);
+
+        return mapper
+                .toFullModelList(repository.findAllWithProfileAndAttempts(page.stream().collect(Collectors.toList())));
+    }
+
 }

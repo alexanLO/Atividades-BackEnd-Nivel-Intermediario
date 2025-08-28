@@ -6,9 +6,11 @@ import java.time.format.DateTimeFormatter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.info.BuildProperties;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import com.alexan.spring_ecossistema.controller.dto.responses.SystemInfoResponse;
+import com.alexan.spring_ecossistema.exceptions.BusinessException;
 import com.alexan.spring_ecossistema.service.InfoService;
 
 @Service
@@ -27,7 +29,7 @@ public class InfoServiceImpl implements InfoService {
                     InetAddress.getLocalHost().getHostAddress());
 
         } catch (Exception e) {
-            throw new RuntimeException("Error: " + e.getMessage());
+            throw new BusinessException(HttpStatus.INTERNAL_SERVER_ERROR.value(), "Error: " + e.getMessage());
         }
 
     }

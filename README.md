@@ -131,6 +131,18 @@ Este repositório contém exercícios e desafios práticos para consolidar os t�
 ✅ Tópicos: `@Aspect`, `@Before`, `@AfterReturning`, `@Around`, `@Annotation`, `JoinPoint`, `ProceedingJoinPoint`, `Logs`, `Auditoria`
 📝 Descrição: Implementar um aspecto com @Aspect para registrar logs e auditoria em métodos de controllers e services. Usar a anotação personalizada @Auditable para indicar ações sensíveis (como criação, atualização e exclusão), registrando usuário, ação, entidade e tempo de execução automaticamente no terminal.
 
+### 🔸 Desafio Prático – Spring Security com JWT + RBAC
+- [x] [✔️]
+📂 Pasta: spring-ecossistema
+✅ Tópicos: `Spring Security`, `JWT`, `RBAC`, `Filter`, `AuthenticationManager`, `UserDetailsService`, `Authorization`, `Token`, `Roles`, `@PreAuthorize`, `@Secured`
+📝 Descrição: Implementar autenticação com JWT (JSON Web Token) e controle de acesso baseado em regras (RBAC) no projeto. Usuários devem se autenticar com email e senha, receber um token JWT e usá-lo para acessar rotas protegidas. Usar anotações como @PreAuthorize para restringir endpoints a papéis como ADMIN e USER. Criar filtros customizados para autenticação e verificação do token.
+
+### 🔸 Desafio Prático – SQL Avançado no Projeto de Gerenciamento de Usuários
+- [x] [✔️]
+📂 Pasta: sql-avancado
+✅ Tópicos: `JOIN`, `GROUP BY`, `HAVING`, `SUBQUERY`, `AGGREGATION`, `TIMESTAMP`, `CASE`, `MAX`, `INNER JOIN`, `LEFT JOIN`, `DATE FILTERING`
+📝 Descrição: Criar queries SQL avançadas para resolver problemas reais do sistema, como: identificar usuários com múltiplas tentativas de login falhas nos últimos 7 dias, listar usuários com seus perfis, contar tentativas de login por usuário, mostrar última tentativa de login e indicar o status mais recente com base em sucesso ou falha. Utilizar boas práticas e expressões SQL limpas.
+
 ## ✍️ Anotações e Aprendizados
 
 Use esta seção para registrar insights, erros comuns, ou dicas:

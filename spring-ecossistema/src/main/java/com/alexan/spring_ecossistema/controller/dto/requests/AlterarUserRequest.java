@@ -1,37 +1,36 @@
 package com.alexan.spring_ecossistema.controller.dto.requests;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import com.alexan.spring_ecossistema.model.enums.EnumStatus;
+import com.alexan.spring_ecossistema.model.enums.RoleEnum;
+import com.alexan.spring_ecossistema.validator.annotations.ValidEmailCorp;
 
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class AlterarUserRequest {
 
-    @NotBlank(message = "Nome e obrigatorio.")
     @Size(min = 3, max = 50, message = "Nome deve ter entre 3 e 50 caracteres")
-    private String name;
-    @Email(message = "Por favor, forneça um endereço de e-mail válido")
-    @NotBlank(message = "Email e obrigatorio.")
+    private String fullName;
+
+    @ValidEmailCorp
     private String email;
 
-    public AlterarUserRequest(String name, String email) {
-        this.name = name;
-        this.email = email;
-    }
+    @Size(min = 6, max = 20, message = "Senha deve ter entre 6 e 20 caracteres")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{6,20}$", message = "Senha deve conter pelo menos uma letra maiúscula, uma letra minúscula, um número e um caractere especial")
+    private String password;
 
-    public String getName() {
-        return name;
-    }
+    private RoleEnum role;
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
+    private EnumStatus status;
 
 }

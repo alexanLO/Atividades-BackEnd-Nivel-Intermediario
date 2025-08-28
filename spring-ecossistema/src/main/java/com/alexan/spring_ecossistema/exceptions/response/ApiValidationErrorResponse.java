@@ -1,4 +1,4 @@
-package com.alexan.spring_ecossistema.exceptions;
+package com.alexan.spring_ecossistema.exceptions.response;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
@@ -14,9 +14,11 @@ import lombok.Setter;
 @Setter
 @Builder
 @AllArgsConstructor
-@JsonTypeName("negocio")
-public class SubErrorBusiness implements ApiSubErrorResponse {
+@JsonTypeName("validacao")
+public class ApiValidationErrorResponse implements ApiSubErrorResponse {
 
-    private final String code;
+    private final String object;
     private final String message;
+    private String field;
+    private Object rejectedValue;
 }

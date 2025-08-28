@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
-import com.alexan.spring_ecossistema.infra.SecurityUserDetails;
+import com.alexan.spring_ecossistema.infra.security.SecurityUserDetails;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
