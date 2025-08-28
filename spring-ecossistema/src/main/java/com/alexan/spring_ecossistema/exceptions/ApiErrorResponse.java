@@ -16,7 +16,11 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import jakarta.validation.ConstraintViolation;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @JsonTypeName("apierror")
 @JsonTypeInfo(include = JsonTypeInfo.As.WRAPPER_OBJECT, use = JsonTypeInfo.Id.NAME)
 public class ApiErrorResponse {
@@ -74,15 +78,27 @@ public class ApiErrorResponse {
     }
 
     public void addValidationError(String object, String field, Object rejectedValue, String message) {
-        addSubError(new ApiValidationErrorResponse(object, field, rejectedValue, message));
+        addSubError(
+                ApiValidationErrorResponse.builder()
+                        .object(object)
+                        .field(field)
+                        .rejectedValue(rejectedValue)
+                        .message(message)
+                        .build());
     }
 
     private void addValidationError(String code, String message) {
-        addSubError(new ApiValidationErrorResponse(code, message));
+        addSubError(ApiValidationErrorResponse.builder()
+                .object(code)
+                .message(message)
+                .build());
     }
 
     public void addErrorBusiness(String code, String message) {
-        addSubError(new SubErrorBusiness(code, message));
+        addSubError(SubErrorBusiness.builder()
+                .code(code)
+                .message(message)
+                .build());
     }
 
     private void addValidationError(FieldError fieldError) {
@@ -124,37 +140,4 @@ public class ApiErrorResponse {
     public void addValidationError(Set<ConstraintViolation> constraintViolation) {
         constraintViolation.forEach(this::addValidationError);
     }
-
-    public LocalDateTime getTimeStamp() {
-        return timeStamp;
-    }
-
-    public HttpStatus getStatus() {
-        return status;
-    }
-
-    public Integer getCodeError() {
-        return codeError;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public String getDetailMessage() {
-        return detailMessage;
-    }
-
-    public void setDetailMessage(String detailMessage) {
-        this.detailMessage = detailMessage;
-    }
-
-    public List<ApiSubErrorResponse> getSubErrors() {
-        return subErrors;
-    }
-
 }

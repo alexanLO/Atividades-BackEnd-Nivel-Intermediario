@@ -5,28 +5,31 @@ import java.time.LocalDateTime;
 import java.time.ZoneOffset;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 
-import com.alexan.spring_ecossistema.controller.dto.requests.UserRequest;
+import com.alexan.spring_ecossistema.infra.SecurityUserDetails;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class JwtService {
 
-    @Autowired
-    private JwtProperties jwtProperties;
+    private final JwtProperties jwtProperties;
 
-    public String generateToken(UserRequest user) {
+    public String generateToken(SecurityUserDetails user) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(jwtProperties.getSecret());
             return JWT.create()
                     .withIssuer(jwtProperties.getIssuer())
                     .withSubject(user.getUsername())
                     .withExpiresAt(getExpirationTime())
-                    .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
+                    .withClaim("roles",
+                            user.getAuthorities().stream().map(GrantedAuthority::getAuthority)
+                                    .collect(Collectors.toList()))
                     .sign(algorithm);
         } catch (Exception e) {
             throw new RuntimeException("Erro ao gerar o token JWT: " + e.getMessage());

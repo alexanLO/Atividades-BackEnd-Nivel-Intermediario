@@ -2,25 +2,21 @@ package com.alexan.spring_ecossistema.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonTypeName;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
 /**
  * Especifico para validacao de API
  */
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
 @JsonTypeName("negocio")
 public class SubErrorBusiness implements ApiSubErrorResponse {
 
     private final String code;
     private final String message;
-
-    SubErrorBusiness(String code, String message) {
-        this.code = code;
-        this.message = message;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getMessage() {
-        return message;
-    }
 }

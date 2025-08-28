@@ -2,7 +2,6 @@ package com.alexan.spring_ecossistema.infra.security.jwt;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,15 +14,15 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 
 @Component
+@RequiredArgsConstructor
 public class JwtAuthFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private JwtService jwtService;
+    private final JwtService jwtService;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
@@ -34,11 +33,9 @@ public class JwtAuthFilter extends OncePerRequestFilter {
         if (token != null && !token.isEmpty()) {
             try {
                 String username = jwtService.validateToken(token);
-
                 if (username != null &&
                         SecurityContextHolder.getContext().getAuthentication() == null) {
                     UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-
                     UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(
                             userDetails, null, userDetails.getAuthorities());
 
@@ -49,6 +46,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                 return;
             }
         }
+
         filterChain.doFilter(request, response);
     }
 

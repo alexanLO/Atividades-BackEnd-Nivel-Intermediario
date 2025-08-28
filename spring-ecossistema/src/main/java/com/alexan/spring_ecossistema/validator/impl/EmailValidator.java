@@ -9,11 +9,6 @@ public class EmailValidator implements ConstraintValidator<ValidEmailCorp, Strin
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext context) {
-        if (value == null || value.isBlank()) {
-            context.disableDefaultConstraintViolation();
-            context.buildConstraintViolationWithTemplate("O campo email não pode ser vazio.").addConstraintViolation();
-            return false;
-        }
         if (!value.contains("@Empresa.com")) {
             context.disableDefaultConstraintViolation();
             context.buildConstraintViolationWithTemplate("O email deve ser empresarial, exemplo: exemplo@Empresa.com")
