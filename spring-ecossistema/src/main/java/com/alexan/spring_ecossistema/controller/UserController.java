@@ -16,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alexan.spring_ecossistema.controller.dto.requests.AlterarUserRequest;
+import com.alexan.spring_ecossistema.controller.dto.requests.UserFilterRequest;
 import com.alexan.spring_ecossistema.controller.dto.requests.UserRequest;
-import com.alexan.spring_ecossistema.controller.dto.responses.UserFullInfoResponse;
+import com.alexan.spring_ecossistema.controller.dto.responses.UserFilterResponse;
+import com.alexan.spring_ecossistema.controller.dto.responses.UserProfilAttemptsResponse;
 import com.alexan.spring_ecossistema.controller.dto.responses.UserResponse;
 import com.alexan.spring_ecossistema.controller.mapper.UserMapper;
 import com.alexan.spring_ecossistema.service.UserService;
@@ -38,20 +40,20 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UUID> register(@RequestBody @Valid UserRequest request) {
-        log.info("Registrando um novo usuário com dados: {}", request);
+        log.info("Registrando um novo usuario com os dados: {}", request);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(service.register(mapper.toUserModel(request)));
     }
 
     @GetMapping
     public ResponseEntity<List<UserResponse>> listingAll(Pageable pageable) {
-        log.info("Listando todos os usuários");
+        log.info("Listando todos os usuarios");
         return ResponseEntity.status(HttpStatus.OK).body(mapper.ToListResponse(service.listingAll(pageable)));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserResponse> searchingById(@PathVariable @NonNull UUID id) {
-        log.info("Buscando usuário pelo id: {}", id);
+        log.info("Buscando usuario pelo id: {}", id);
 
         return ResponseEntity.status(HttpStatus.OK).body(mapper.ToResponse(service.searchingById(id)));
     }
@@ -67,17 +69,31 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable @NonNull UUID id) {
-        log.info("Deletando o usuário com id: {}", id);
+        log.info("Deletando o usuario com id: {}", id);
 
         service.deleteUser(id);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/allWithProfileAndAttempts")
-    public ResponseEntity<List<UserFullInfoResponse>> searchingAllWithProfileAndAttempts(Pageable pageable) {
-        log.info("Buscando todos os usuários com perfil e tentativas de login");
+    public ResponseEntity<List<UserProfilAttemptsResponse>> searchingAllWithProfileAndAttempts(Pageable pageable) {
+        log.info("Listando todos os usuarios com perfil e tentativas de login");
 
         return ResponseEntity.status(HttpStatus.OK)
                 .body(mapper.ToListFullResponse(service.searchingAllWithProfileAndAttempts(pageable)));
     }
+
+    @GetMapping("/new")
+    public ResponseEntity<List<UserResponse>> listingAllNewUsers() {
+        log.info("Listando todos os novos usuários");
+        // * Caso precise futuramente implementar pageble para paginação */
+        return ResponseEntity.ok().body(mapper.ToListResponse(service.listingAllNewUsers()));
+    }
+
+    @PostMapping("/filter")
+    public ResponseEntity<List<UserFilterResponse>> listingByFilter(@RequestBody UserFilterRequest request) {
+        return ResponseEntity.ok()
+                .body(mapper.toListFilterResponse(service.listintByFilter(mapper.toRequestFilterModel(request))));
+    }
+
 }

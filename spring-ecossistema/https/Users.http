@@ -1,0 +1,97 @@
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzcHJpbmctZWNvc3Npc3RlbWEiLCJzdWIiOiJ0ZWRGZXJyeUBFbXByZXNhLmNvbSIsImV4cCI6MTc1NjczOTY0Miwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdfQ.iQCCmz4n7uUHH-T3_55sTzJk-BNQw6OzXn8a5X3vEFk
+
+# Login
+POST {{hostname}}/api/auth/login
+content-type: {{contentType}}
+
+{
+	"email": "tedFerry@Empresa.com",
+	"password" : "senhaADMIN1@"
+}
+
+#EXEMPLOS: 
+# "ADMIN"
+# {
+#     "email": "tedFerry@Empresa.com",
+#     "password" : "senhaADMIN1@"
+# }
+
+# "USER"
+# {
+#     "email": "eduardTesoura@Empresa.com",
+#     "password" : "senhaUSER1@"
+# }
+
+# {
+#   "email": "bobEsponja@Empresa.com",
+#     "password": "senhaUSER1@1"
+# }
+###
+
+# Registrando novo usuário
+POST {{hostname}}/v1/users
+content-type: {{contentType}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzcHJpbmctZWNvc3Npc3RlbWEiLCJzdWIiOiJ0ZWRGZXJyeUBFbXByZXNhLmNvbSIsImV4cCI6MTc1NjQ5MDkxOCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdfQ.hMFqAwejFM832sYIs9H7y9HHP4xWGn8e3FirNfz_3S0
+
+{
+    "fullName": "Bob Esponja",
+    "email": "bobEsponja@Empresa.com",
+    "password": "senhaUSER1@",
+    "status": "EXPIRADO",
+	"role": "USER"
+}
+###
+
+# Listando todos os usuários
+GET {{hostname}}/v1/users
+Authorization: {{token}}
+###
+
+# Buscando usuário por id
+GET {{hostname}}/v1/users/9ec132e0-87db-4181-bcd4-9ca0f4dd08da
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzcHJpbmctZWNvc3Npc3RlbWEiLCJzdWIiOiJ0ZWRGZXJyeUBFbXByZXNhLmNvbSIsImV4cCI6MTc1NjQ5NzE1Miwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdfQ.J38sJpqlDKja_2V5zXgwcQsYkZW_z90KZ1M9fx8xHp4
+###
+
+# Listando usuarios com perfil e tentativas de logins
+GET {{hostname}}/v1/users/allWithProfileAndAttempts
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzcHJpbmctZWNvc3Npc3RlbWEiLCJzdWIiOiJ0ZWRGZXJyeUBFbXByZXNhLmNvbSIsImV4cCI6MTc1NjQ5MDkxOCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdfQ.hMFqAwejFM832sYIs9H7y9HHP4xWGn8e3FirNfz_3S0
+###
+
+# Atualizando os dados do usuário
+PUT {{hostname}}/v1/users/97615f89-5d91-497c-9237-0a97828dad57
+content-type: {{contentType}}
+Authorization: {{token}}
+###
+
+# Atualizando o status do usuário
+@id = 1
+@status = "INATIVO"
+PUT {{hostname}}/v1/users/{{id}}/{{status}}
+content-type: {{contentType}}
+Authorization: {{token}}
+###
+
+# Deletando um usuário
+@id = 1
+DELETE {{hostname}}/v1/users/{{id}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzcHJpbmctZWNvc3Npc3RlbWEiLCJzdWIiOiJ0ZWRGZXJyeUBFbXByZXNhLmNvbSIsImV4cCI6MTc1NjQ5MDkxOCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdfQ.hMFqAwejFM832sYIs9H7y9HHP4xWGn8e3FirNfz_3S0
+###
+
+# Listando novos usuários 
+GET {{hostname}}/v1/users/new
+Authorization: {{token}}
+###
+
+#
+POST {{hostname}}/v1/users/filter
+Content-Type: {{contentType}}
+Authorization: {{token}}
+
+{
+"fullName": null,
+"email": null,
+"status": null,
+"createBy": "2025-08-25T16:50:02.93011",
+"createUntil": "2025-08-28T12:26:02.915243"
+}
+###

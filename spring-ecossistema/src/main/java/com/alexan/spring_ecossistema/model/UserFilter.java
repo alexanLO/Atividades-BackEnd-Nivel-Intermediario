@@ -1,8 +1,6 @@
 package com.alexan.spring_ecossistema.model;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.UUID;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,23 +13,15 @@ import lombok.Setter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
-
-    private UUID id;
+public class UserFilter {
 
     private String fullName;
 
     private String email;
 
-    private String password;
-
-    private String role;
-
     private String status;
 
-    private LocalDateTime createAt;
+    private LocalDateTime createBy;
 
-    private Profile profile;
-
-    private List<LoginAttempt> loginAttempts;
+    private LocalDateTime createUntil;
 }

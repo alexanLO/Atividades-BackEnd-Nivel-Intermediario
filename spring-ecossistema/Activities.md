@@ -713,4 +713,59 @@ public User createUser(UserRequest req) {...}`
 - Simule o problema N+1 em uma lista e corrija com `JOIN FETCH`
 - Use `EntityManager.detach()` ou `@Transactional(readOnly = true)` se quiser explorar mais
 
+
+
+
+# 📝 Desafio: Relatórios e Filtros Avançados com Spring Data JPA
+
+Você está trabalhando no módulo de gerenciamento de usuários da aplicação. O time precisa de consultas avançadas para relatórios, telas de administração e filtros dinâmicos.
+
+## 🎯 Requisitos
+
+1. JPQL (consultas personalizadas)
+
+- Crie uma consulta que retorne todos os usuários ativos que nunca logaram no sistema.
+- Crie uma consulta que traga os 5 últimos usuários criados (ordenados por data de criação).
+
+2. Projections (DTOs diretos do banco)
+
+- Crie uma Projection interface chamada UserSummaryProjection com os campos:
+
+  - id
+  - nome
+  - email
+  - ultimoLogin
+
+- Crie um repositório que use essa projection para retornar somente esses dados.
+
+(Isso é útil para listas e relatórios sem precisar carregar a entidade inteira.)
+
+3. Specifications (filtros dinâmicos)
+
+Implemente um filtro de usuários que permita combinar critérios dinamicamente:
+
+- Filtrar por nome (contém).
+- Filtrar por email (igual).
+- Filtrar por status (ativo/inativo).
+- Filtrar por intervalo de datas de criação.
+
+👉 O controller deve aceitar parâmetros opcionais na query string e aplicar a Specification apenas quando o parâmetro estiver presente.
+Exemplo de chamada:
+
+```bash
+GET /usuarios?nome=ana&status=ATIVO&dataInicio=2024-01-01&dataFim=2024-12-31
+```
+
+## 📌 Extras (para nível avançado)
+
+- Crie um endpoint /usuarios/relatorio que retorne uma lista usando projection.
+- Adicione paginação e ordenação nos endpoints de listagem.
+
+## ✅ O que você vai praticar
+
+- Escrita de JPQL queries personalizadas.
+- Uso de Projections (interface e classe DTO).
+- Specifications para consultas dinâmicas e flexíveis.
+- Boas práticas com paginação, ordenação e DTOs.
+
 # proxima atividade

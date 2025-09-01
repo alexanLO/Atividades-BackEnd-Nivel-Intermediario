@@ -1,0 +1,11 @@
+# INFO
+GET http://localhost:9090/info
+###
+
+# METRICS
+GET http://localhost:9090/metrics
+###
+
+# HEALTH
+GET http://localhost:9090/health
+### 

@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.data.domain.Pageable;
 
 import com.alexan.spring_ecossistema.model.User;
+import com.alexan.spring_ecossistema.model.UserFilter;
 
 public interface UserService {
 
@@ -22,5 +23,9 @@ public interface UserService {
     public void deleteUser(UUID id);
 
     public List<User> searchingAllWithProfileAndAttempts(Pageable pageable);
+
+    public List<User> listingAllNewUsers();
+
+    public List<User> listintByFilter(UserFilter request);
 
 }
