@@ -768,4 +768,109 @@ GET /usuarios?nome=ana&status=ATIVO&dataInicio=2024-01-01&dataFim=2024-12-31
 - Specifications para consultas dinâmicas e flexíveis.
 - Boas práticas com paginação, ordenação e DTOs.
 
+# 🏆 Desafio – Migrar para Flyway com banco já existente
+
+# 🎯 Objetivo
+
+- Parar de usar `spring.jpa.hibernate.ddl-auto` para criar tabelas.
+- Passar a usar **scripts de migração** no Flyway.
+- Garantir que o estado atual do banco seja o **V1** do Flyway.
+
+## 📌 Etapas do desafio
+
+### 1. Desabilitar o Hibernate criar as tabelas
+
+No `application.yml`, ajuste:
+
+```yaml
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: validate  # (ou none, se preferir)
+```
+
+Isso garante que o Hibernate só **valide** o schema, mas não cria mais as tabelas.
+
+### 2. Inicializar Flyway com o schema existente
+
+Já que você **tem tabelas prontas**, crie um script **baseline** para marcar o estado atual como versão 1.
+
+👉 Crie o arquivo:
+
+```
+src/main/resources/db/migration/V1__baseline.sql
+
+```
+
+E dentro dele coloque a criação das tabelas que já existem. Exemplo (ajuste conforme seu projeto JPA):
+
+```sql
+CREATE TABLE users (
+    id BIGINT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role VARCHAR(50) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status VARCHAR(20) DEFAULT 'ACTIVE'
+);
+
+CREATE TABLE audit_log (
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
+    action VARCHAR(100) NOT NULL,
+    username VARCHAR(50),
+    old_data JSON,
+    new_data JSON,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+### 3. Marcar o baseline no Flyway
+
+No `application.yml` adicione:
+
+```yaml
+spring:
+  flyway:
+    baseline-on-migrate: true
+```
+
+Assim, quando rodar a aplicação, o Flyway entende que o estado atual é **baseline (V1)**.
+
+### 4. Criar novas versões
+
+A partir daqui, toda mudança de banco deve ser feita com **novo script**:
+
+- Exemplo: `V2__add_last_login.sql`
+
+```sql
+ALTER TABLE users ADD COLUMN last_login TIMESTAMP;
+
+```
+
+### 5. Desafio extra 🚀
+
+Crie uma migração `V3__create_permissions_table.sql` para adicionar controle de permissões no seu sistema de usuários:
+
+```sql
+CREATE TABLE permissions (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
+);
+
+CREATE TABLE user_permissions (
+    user_id BIGINT NOT NULL,
+    permission_id BIGINT NOT NULL,
+    PRIMARY KEY (user_id, permission_id),
+    CONSTRAINT fk_user FOREIGN KEY (user_id) REFERENCES users(id),
+    CONSTRAINT fk_permission FOREIGN KEY (permission_id) REFERENCES permissions(id)
+);
+```
+
+✅ Critério de sucesso:
+
+- Flyway aplica as migrações em ordem.
+- Seu banco atual está registrado como baseline (`V1`).
+- Você consegue adicionar novas versões sem quebrar o histórico.
+
 # proxima atividade
