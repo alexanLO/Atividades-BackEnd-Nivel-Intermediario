@@ -8,6 +8,5 @@ public class SpringEcossistemaApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringEcossistemaApplication.class, args);
-
 	}
 }

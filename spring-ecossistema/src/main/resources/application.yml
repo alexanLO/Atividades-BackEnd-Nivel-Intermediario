@@ -75,7 +75,7 @@ spring:
 #==============================
   jpa:
       hibernate:
-        ddl-auto: update # Atualiza o esquema do banco de dados automaticamente
+        ddl-auto: validate # Atualiza o esquema do banco de dados automaticamente
         show-sql: true # Exibe as consultas SQL no console
       properties:
         hibernate:
@@ -88,3 +88,12 @@ spring:
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl # Estratégia de nomenclatura física padrão do Hibernate
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl # Estratégia de nomenclatura implícita legada do JPA
+#==============================
+# Configuração do Flyway
+#==============================
+  flyway:
+    enabled: true
+    url: jdbc:oracle:thin:@localhost:1521/XEPDB1
+    user: admin
+    password: admin
+    baseline-on-migrate: true
