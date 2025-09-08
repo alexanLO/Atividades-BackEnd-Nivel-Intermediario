@@ -30,9 +30,9 @@ public class SecurityConfig {
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/auth/login").permitAll()
-                        .requestMatchers(HttpMethod.GET, "v1/users/{id}").hasRole("USER")
-                        .requestMatchers("v1/users/**").hasRole("ADMIN")
-                        .requestMatchers("v1/profiles/**").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/v1/users/{id}").hasAnyRole("ADMIN", "USER")
+                        .requestMatchers("/v1/users/**").hasRole("ADMIN")
+                        .requestMatchers("/v1/profiles/**").permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();

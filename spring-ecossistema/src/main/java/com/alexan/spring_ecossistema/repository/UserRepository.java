@@ -37,4 +37,6 @@ public interface UserRepository extends JpaRepository<UserEntity, UUID>, JpaSpec
     Optional<UserSummaryProjection> findProjectedById(UUID id);
 
     List<UserSummaryProjection> findProjectedAllBy(Pageable pageable);
+
+    Optional<UserEntity> findByFullNameOrEmail(String fullName, String email);
 }

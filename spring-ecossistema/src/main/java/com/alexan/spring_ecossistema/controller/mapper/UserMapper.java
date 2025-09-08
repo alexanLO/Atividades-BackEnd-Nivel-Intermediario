@@ -19,7 +19,12 @@ import com.alexan.spring_ecossistema.controller.dto.responses.UserResponse;
 import com.alexan.spring_ecossistema.model.User;
 import com.alexan.spring_ecossistema.model.UserFilter;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, unmappedTargetPolicy = ReportingPolicy.IGNORE, nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS, nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, builder = @Builder(disableBuilder = true), injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, 
+unmappedTargetPolicy = ReportingPolicy.IGNORE, 
+unmappedSourcePolicy = ReportingPolicy.IGNORE, 
+nullValueCheckStrategy = NullValueCheckStrategy.ALWAYS, 
+nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE, 
+builder = @Builder(disableBuilder = true), injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface UserMapper {
 
     User toUserModel(UserRequest request);

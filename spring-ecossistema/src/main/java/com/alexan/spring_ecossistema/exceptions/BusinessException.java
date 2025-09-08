@@ -18,6 +18,6 @@ public class BusinessException extends RuntimeException {
     public BusinessException(String erroCode, String erroMsg) {
         super(erroMsg);
         this.erroCode = erroCode;
-        this.erroMsg = erroMsg;
+        this.erroMsg = erroMsg; 
     }
 }

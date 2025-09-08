@@ -38,19 +38,27 @@ public interface EntityMapper {
 
     @Mapping(target = "fullName", source = "fullName")
     @Mapping(target = "email", source = "email")
-    @Mapping(target = "password", expression = "java(org.springframework.security.crypto.bcrypt.BCrypt.hashpw(model.getPassword(), org.springframework.security.crypto.bcrypt.BCrypt.gensalt()))")
     @Mapping(target = "role", source = "role")
     @Mapping(target = "status", source = "status")
     @Mapping(target = "createAt", source = "createAt", defaultExpression = "java(java.time.LocalDateTime.now())")
     void updateEntityUser(User model, @MappingTarget UserEntity entity);
 
     User toModel(UserEntity entity);
-    
+
     List<User> toListModel(List<UserEntity> entity);
 
     List<User> toFullModelList(List<UserEntity> entity);
-    
+
     User toModel(UserSummaryProjection summaryProjection);
 
     List<User> toModelListPage(List<UserSummaryProjection> allCustom);
+
+    // Adicione um método default para tratar a senha:
+    default void updateEntityUserWithPassword(User model, @MappingTarget UserEntity entity) {
+        updateEntityUser(model, entity);
+        if (model.getPassword() != null) {
+            entity.setPassword(org.springframework.security.crypto.bcrypt.BCrypt.hashpw(
+                    model.getPassword(), org.springframework.security.crypto.bcrypt.BCrypt.gensalt()));
+        }
+    }
 }

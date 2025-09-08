@@ -1,4 +1,4 @@
-# 🚀 Desafio – Monitoramento e Logs de Sistema com Starter Packs
+# 🏆 Desafio – Monitoramento e Logs de Sistema com Starter Packs
 
 ## 🎯 Objetivo (Gerenciamento de Usuários)
 
@@ -124,7 +124,7 @@ PATCH /api/usuarios/1/status
 
 ---
 
-# 🛡️ Desafio: Interceptor de Requisições HTTP
+# 🏆 Desafio: Interceptor de Requisições HTTP
 
 ## 🎯 Objetivo
 
@@ -197,7 +197,7 @@ long duration = System.currentTimeMillis() - startTime;
 
 ---
 
-# 🛡️ Desafio Prático – Filtro de Requisições HTTP
+# 🏆 Desafio Prático – Filtro de Requisições HTTP
 
 ## Objetivo
 
@@ -230,7 +230,7 @@ O filtro deve:
 
 ---
 
-# 🧪 Desafio Prático – Spring Validation: Validação de Dados do Usuário
+# 🏆 Desafio Prático – Spring Validation: Validação de Dados do Usuário
 
 ## 🎯 Objetivo
 
@@ -477,9 +477,6 @@ src/main/java/com/seuprojeto/
 - JWT validado em todas as requisições autenticadas
 - Acesso negado para usuários sem permissão correta
 
-
-
-
 # 🔸 Desafio Prático – SQL Avançado no Projeto de Gerenciamento de Usuários
 
 Neste desafio, você deve aplicar conhecimentos de SQL avançado ao seu projeto atual. O foco será em:
@@ -594,7 +591,7 @@ COMMIT;
 - Use EXPLAIN ANALYZE para checar performance se quiser aprofundar
 - Se usar Flyway, não precisa criar tabelas manualmente — ele controla as versões para você
 
-# 🔸 Desafio Prático – JPA/Hibernate Intermediário no Projeto de Gerenciamento de Usuários
+# 🏆 Desafio Prático – JPA/Hibernate Intermediário no Projeto de Gerenciamento de Usuários
 
 Neste desafio, você deve aplicar conceitos intermediários de JPA e Hibernate no seu projeto. O foco será em:
 
@@ -700,7 +697,7 @@ public User createUser(UserRequest req) {...}`
 ## ✅ Entregáveis
 
 - Entidades mapeadas corretamente com relacionamentos
-- Uso de `FetchType.LAZY` e `FetchType.EAGER` consciente 
+- Uso de `FetchType.LAZY` e `FetchType.EAGER` consciente
 - Controller ou Service com queries otimizadas (`JOIN FETCH`)
 - Uso dos callbacks de entidade (`@PrePersist`, `@PostUpdate`, etc)
 - (Opcional) Integração com o aspecto `@Auditable` para log de ações sensíveis
@@ -713,10 +710,7 @@ public User createUser(UserRequest req) {...}`
 - Simule o problema N+1 em uma lista e corrija com `JOIN FETCH`
 - Use `EntityManager.detach()` ou `@Transactional(readOnly = true)` se quiser explorar mais
 
-
-
-
-# 📝 Desafio: Relatórios e Filtros Avançados com Spring Data JPA
+# 🏆 Desafio: Relatórios e Filtros Avançados com Spring Data JPA
 
 Você está trabalhando no módulo de gerenciamento de usuários da aplicação. O time precisa de consultas avançadas para relatórios, telas de administração e filtros dinâmicos.
 
@@ -770,7 +764,7 @@ GET /usuarios?nome=ana&status=ATIVO&dataInicio=2024-01-01&dataFim=2024-12-31
 
 # 🏆 Desafio – Migrar para Flyway com banco já existente
 
-# 🎯 Objetivo
+## 🎯 Objetivo
 
 - Parar de usar `spring.jpa.hibernate.ddl-auto` para criar tabelas.
 - Passar a usar **scripts de migração** no Flyway.
@@ -872,5 +866,63 @@ CREATE TABLE user_permissions (
 - Flyway aplica as migrações em ordem.
 - Seu banco atual está registrado como baseline (`V1`).
 - Você consegue adicionar novas versões sem quebrar o histórico.
+
+# 🏆 Desafio: Testes no Módulo de Usuários
+
+## 🎯 O objetivo é te preparar para o nível profissional de testes, onde você consegue
+
+- Escrever testes rápidos e isolados (unitários).
+- Escrever testes que simulam o mundo real (integração).
+- Ter confiança de que mudanças no código não quebram o sistema.
+
+## 🧪 Parte 1 – Testes Unitários (Service Layer)
+
+- Criar testes do UserService usando Mockito:
+  - Criar usuário com e-mail válido → deve salvar com sucesso.
+  - Criar usuário com e-mail já existente → deve lançar exceção (DuplicateEmailException).
+  - Buscar usuário por ID inexistente → deve lançar UserNotFoundException.
+  - Atualizar usuário → deve verificar se o repositório foi chamado corretamente.
+  - Deletar usuário → deve chamar o repositório.
+  - Usar ArgumentCaptor para validar se o User salvo tem os dados corretos.
+  - Criar um teste parametrizado (@ParameterizedTest) para validar múltiplos e-mails inválidos.
+
+## 🔗 Parte 2 – Testes de Integração (Repository + Controller)
+
+- Rodar os testes com H2 em memória.
+- Configurar no application-test.yml:
+- spring:
+  - datasource:
+    - url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+    - driver-class-name: org.h2.Driver
+    - username: sa
+    - password:
+  - jpa:
+    - hibernate:
+      - ddl-auto: update
+    - database-platform: org.hibernate.dialect.H2Dialect
+- Criar testes no Repository:
+  - findByEmail retorna o usuário correto.
+  - Buscar usuário inexistente retorna Optional.empty.
+- Criar testes no Controller com MockMvc:
+  - POST /users cria usuário → retorna 201.
+  - POST /users com e-mail duplicado → retorna 400.
+  - GET /users/{id} retorna usuário correto.
+  - GET /users/{id} inexistente → retorna 404.
+  - DELETE /users/{id} remove usuário e retorna 204.
+  - Criar um fluxo completo de integração:
+  - Criar usuário → Buscar → Atualizar → Buscar de novo → Deletar → Confirmar que não existe mais.
+
+## ⭐ Extra (para ficar mais desafiador)
+
+- Usar @Sql para inserir dados antes dos testes e validar cenários (ex: um usuário já existente).
+- Garantir que os erros retornam JSON com mensagem clara (não apenas status code).
+- Medir cobertura dos testes (Jacoco) e tentar bater >80% só em código útil (sem getters/setters).
+
+## 👉 Esse desafio cobre:
+
+- Mockito (mock, spy, captor)
+- JUnit 5 (parametrizado, exceções)
+- MockMvc (teste de endpoints REST)
+- H2 em memória (sem containers, rápido e isolado).
 
 # proxima atividade

@@ -1,11 +1,11 @@
-@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzcHJpbmctZWNvc3Npc3RlbWEiLCJzdWIiOiJ0ZWRGZXJyeUBFbXByZXNhLmNvbSIsImV4cCI6MTc1NjczOTY0Miwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdfQ.iQCCmz4n7uUHH-T3_55sTzJk-BNQw6OzXn8a5X3vEFk
+@token = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzcHJpbmctZWNvc3Npc3RlbWEiLCJzdWIiOiJhbGV4YW5MaW1hQEVtcHJlc2EuY29tIiwiZXhwIjoxNzU3MzQwOTQ3LCJyb2xlcyI6WyJST0xFX0FETUlOIiwiUk9MRV9VU0VSIl19.11waRXAikPttztLaPeaWf4ZSSZd-Gnw1hEf5BNt3K-I
 
 # Login
 POST {{hostname}}/api/auth/login
 content-type: {{contentType}}
 
 {
-	"email": "tedFerry@Empresa.com",
+	"email": "alexanLima@Empresa.com",
 	"password" : "senhaADMIN1@"
 }
 
@@ -27,11 +27,12 @@ content-type: {{contentType}}
 #     "password": "senhaUSER1@1"
 # }
 ###
+###
 
 # Registrando novo usuário
 POST {{hostname}}/v1/users
 content-type: {{contentType}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzcHJpbmctZWNvc3Npc3RlbWEiLCJzdWIiOiJ0ZWRGZXJyeUBFbXByZXNhLmNvbSIsImV4cCI6MTc1NjQ5MDkxOCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdfQ.hMFqAwejFM832sYIs9H7y9HHP4xWGn8e3FirNfz_3S0
+Authorization: {{token}}
 
 {
     "fullName": "Bob Esponja",
@@ -48,19 +49,24 @@ Authorization: {{token}}
 ###
 
 # Buscando usuário por id
-GET {{hostname}}/v1/users/9ec132e0-87db-4181-bcd4-9ca0f4dd08da
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzcHJpbmctZWNvc3Npc3RlbWEiLCJzdWIiOiJ0ZWRGZXJyeUBFbXByZXNhLmNvbSIsImV4cCI6MTc1NjQ5NzE1Miwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdfQ.J38sJpqlDKja_2V5zXgwcQsYkZW_z90KZ1M9fx8xHp4
+GET {{hostname}}/v1/users/9571bd24-fa54-49ab-bb96-4a73307909c0
+Authorization: {{token}}
 ###
 
 # Listando usuarios com perfil e tentativas de logins
 GET {{hostname}}/v1/users/allWithProfileAndAttempts
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzcHJpbmctZWNvc3Npc3RlbWEiLCJzdWIiOiJ0ZWRGZXJyeUBFbXByZXNhLmNvbSIsImV4cCI6MTc1NjQ5MDkxOCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdfQ.hMFqAwejFM832sYIs9H7y9HHP4xWGn8e3FirNfz_3S0
+Authorization: {{token}}
 ###
 
 # Atualizando os dados do usuário
-PUT {{hostname}}/v1/users/97615f89-5d91-497c-9237-0a97828dad57
+PUT {{hostname}}/v1/users/9571bd24-fa54-49ab-bb96-4a73307909c0
 content-type: {{contentType}}
 Authorization: {{token}}
+
+{
+    "fullName": "Bob Esponja Quadrada",
+    "email": "bob@Empresa.com"
+}
 ###
 
 # Atualizando o status do usuário
@@ -74,7 +80,7 @@ Authorization: {{token}}
 # Deletando um usuário
 @id = 1
 DELETE {{hostname}}/v1/users/{{id}}
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzcHJpbmctZWNvc3Npc3RlbWEiLCJzdWIiOiJ0ZWRGZXJyeUBFbXByZXNhLmNvbSIsImV4cCI6MTc1NjQ5MDkxOCwicm9sZXMiOlsiUk9MRV9BRE1JTiIsIlJPTEVfVVNFUiJdfQ.hMFqAwejFM832sYIs9H7y9HHP4xWGn8e3FirNfz_3S0
+Authorization: {{token}}
 ###
 
 # Listando novos usuários 

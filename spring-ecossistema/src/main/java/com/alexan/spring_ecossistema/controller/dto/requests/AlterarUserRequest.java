@@ -1,6 +1,6 @@
 package com.alexan.spring_ecossistema.controller.dto.requests;
 
-import com.alexan.spring_ecossistema.model.enums.EnumStatus;
+import com.alexan.spring_ecossistema.model.enums.StatusEnum;
 import com.alexan.spring_ecossistema.model.enums.RoleEnum;
 import com.alexan.spring_ecossistema.validator.annotations.ValidEmailCorp;
 
@@ -31,6 +31,6 @@ public class AlterarUserRequest {
 
     private RoleEnum role;
 
-    private EnumStatus status;
+    private StatusEnum status;
 
 }

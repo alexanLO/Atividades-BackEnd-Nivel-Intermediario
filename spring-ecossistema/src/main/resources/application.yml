@@ -19,6 +19,8 @@ server:
 logging: # Nível de log para as classes do Spring Framework (INFO, DEBUG, ERROR, etc.)
   level:
     ROOT: INFO
+    org.hibernate.SQL: DEBUG
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
 #=============================================
 # Configuração do Actuator
@@ -80,8 +82,8 @@ spring:
       properties:
         hibernate:
           dialect: org.hibernate.dialect.OracleDialect #Dialeto do banco de dados Oracle
-          format-sql: true # Formata as consultas SQL exibidas no console
-          use-sql-comments: true # Adiciona comentários às consultas SQL
+          format_sql: true # Formata as consultas SQL exibidas no console
+          use_sql_comments: true # Adiciona comentários às consultas SQL
       database-platform: org.hibernate.dialect.OracleDialect # Dialeto do banco de dados Oracle
       open-in-view: false # Desabilita o Open EntityManager in View para evitar problemas de LazyInitializationException
       generate-ddl: true # Gera o DDL (Data Definition Language) para o banco de dados

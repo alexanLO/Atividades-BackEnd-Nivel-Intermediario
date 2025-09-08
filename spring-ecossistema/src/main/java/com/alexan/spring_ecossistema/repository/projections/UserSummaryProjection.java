@@ -3,7 +3,7 @@ package com.alexan.spring_ecossistema.repository.projections;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import com.alexan.spring_ecossistema.model.enums.EnumStatus;
+import com.alexan.spring_ecossistema.model.enums.StatusEnum;
 import com.alexan.spring_ecossistema.model.enums.RoleEnum;
 
 public interface UserSummaryProjection {
@@ -16,7 +16,7 @@ public interface UserSummaryProjection {
 
     RoleEnum getRole();
 
-    EnumStatus getStatus();
+    StatusEnum getStatus();
 
     LocalDateTime getCreateAt();
 }

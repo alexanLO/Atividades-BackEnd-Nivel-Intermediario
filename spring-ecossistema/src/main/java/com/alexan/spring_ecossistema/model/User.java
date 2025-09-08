@@ -4,6 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+import com.alexan.spring_ecossistema.model.enums.RoleEnum;
+import com.alexan.spring_ecossistema.model.enums.StatusEnum;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -25,9 +28,9 @@ public class User {
 
     private String password;
 
-    private String role;
+    private RoleEnum role;
 
-    private String status;
+    private StatusEnum status;
 
     private LocalDateTime createAt;
 

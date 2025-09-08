@@ -32,13 +32,13 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("v1/users")
+@RequestMapping("/v1/users")
 public class UserController {
 
     private final UserService service;
     private final UserMapper mapper;
 
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<UUID> register(@RequestBody @Valid UserRequest request) {
         log.info("Registrando um novo usuario com os dados: {}", request);
 

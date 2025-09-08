@@ -7,9 +7,11 @@ import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.alexan.spring_ecossistema.exceptions.BusinessException;
 import com.alexan.spring_ecossistema.exceptions.NotFoundException;
 import com.alexan.spring_ecossistema.model.User;
 import com.alexan.spring_ecossistema.model.UserFilter;
@@ -27,6 +29,9 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
+    private static final String USER_EXIST = "Já existe um usuário com esse nome ou email";
+    private static final String NOT_FOUND = "Usuario nao encontrado.";
+
     private final UserRepository repository;
 
     private final EntityMapper mapper;
@@ -35,10 +40,8 @@ public class UserServiceImpl implements UserService {
     @Auditable(action = "Registrando um novo usuario")
     public UUID register(User request) {
 
-        UserEntity user = repository.findByFullName(request.getFullName());
-
-        if (user != null) {
-            throw new RuntimeException("Usuario já existe com id: " + user.getId());
+        if (repository.findByFullNameOrEmail(request.getFullName(), request.getEmail()).isPresent()) {
+              throw new BusinessException(HttpStatus.CONFLICT.value(), USER_EXIST);
         }
 
         return repository.save(mapper.toEntitySave(request)).getId();
@@ -55,7 +58,7 @@ public class UserServiceImpl implements UserService {
     public User searchingById(UUID id) {
         return mapper
                 .toModel(repository.findProjectedById(id)
-                        .orElseThrow(() -> new NotFoundException("Usuario nao encontrado.")));
+                        .orElseThrow(() -> new NotFoundException(NOT_FOUND)));
     }
 
     @Override
@@ -65,8 +68,7 @@ public class UserServiceImpl implements UserService {
         repository.findById(id).map(entity -> {
             mapper.updateEntityUser(request, entity);
             return repository.save(entity);
-        }).orElseThrow(() -> new NotFoundException("Usuario nao encontrado."));
-
+        }).orElseThrow(() -> new NotFoundException(NOT_FOUND));
     }
 
     @Override
@@ -76,7 +78,7 @@ public class UserServiceImpl implements UserService {
         repository.findById(id).map(entity -> {
             repository.delete(entity);
             return Void.TYPE;
-        }).orElseThrow(() -> new RuntimeException("Usuario nao encontrado."));
+        }).orElseThrow(() -> new NotFoundException(NOT_FOUND));
     }
 
     @Override
@@ -84,7 +86,7 @@ public class UserServiceImpl implements UserService {
     public User findByEmail(String username) {
 
         return mapper.toModel(repository.findByEmailWithAttempts(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuario nao encontrado.")));
+                .orElseThrow(() -> new UsernameNotFoundException(NOT_FOUND)));
     }
 
     @Override
@@ -108,6 +110,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Auditable(action = "Listando usuários por filtros")
     public List<User> listintByFilter(UserFilter request) {
         return mapper.toListModel(repository.findAll(UserEspecification.byFilter(request)));
     };

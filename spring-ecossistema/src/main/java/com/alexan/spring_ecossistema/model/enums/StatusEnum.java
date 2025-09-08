@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum EnumStatus {
+public enum StatusEnum {
 
     ATIVO,
     INATIVO, BLOQUEADO, EXPIRADO;

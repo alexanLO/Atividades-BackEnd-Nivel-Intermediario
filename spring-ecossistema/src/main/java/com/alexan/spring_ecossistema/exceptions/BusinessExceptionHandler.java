@@ -27,7 +27,14 @@ public class BusinessExceptionHandler {
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<Object> handleBusinessException(BusinessException ex) {
-        var apiErro = new ApiErrorResponse(HttpStatus.BAD_REQUEST, ex);
+        
+        HttpStatus status = HttpStatus.resolve(Integer.parseInt(ex.getErroCode()));
+        
+        if (status == null) {
+            status = HttpStatus.BAD_REQUEST; // fallback se o código não existir no HttpStatus
+        }
+
+        var apiErro = new ApiErrorResponse(status, ex);
         apiErro.setMessage(ex.getMessage());
         return buildResponseEntity(apiErro, ex);
     }

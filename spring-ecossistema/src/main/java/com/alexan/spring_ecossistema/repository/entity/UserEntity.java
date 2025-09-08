@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-import com.alexan.spring_ecossistema.model.enums.EnumStatus;
+import com.alexan.spring_ecossistema.model.enums.StatusEnum;
 import com.alexan.spring_ecossistema.model.enums.RoleEnum;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -55,7 +55,7 @@ public class UserEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "sttus", length = 10, nullable = false)
-    private EnumStatus status;
+    private StatusEnum status;
 
     @Column(name = "createdAt", nullable = false)
     private LocalDateTime createAt;

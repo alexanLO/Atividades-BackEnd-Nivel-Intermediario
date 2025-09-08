@@ -15,7 +15,7 @@ import com.alexan.spring_ecossistema.exceptions.BusinessException;
 import com.alexan.spring_ecossistema.exceptions.NotFoundException;
 import com.alexan.spring_ecossistema.infra.security.SecurityUserDetails;
 import com.alexan.spring_ecossistema.infra.security.jwt.JwtService;
-import com.alexan.spring_ecossistema.model.enums.EnumStatus;
+import com.alexan.spring_ecossistema.model.enums.StatusEnum;
 import com.alexan.spring_ecossistema.repository.LoginAttemptRepository;
 import com.alexan.spring_ecossistema.repository.UserRepository;
 import com.alexan.spring_ecossistema.repository.entity.LoginAttemptEntity;
@@ -89,7 +89,7 @@ public class AuthServiceImpl implements AuthService {
                 .limit(maximumAttempts)
                 .allMatch(attempt -> attempt.getSuccess().equals(FAILURE))) {
 
-            user.setStatus(EnumStatus.BLOQUEADO);
+            user.setStatus(StatusEnum.BLOQUEADO);
             userRepository.save(user);
 
             throw new BusinessException(HttpStatus.LOCKED.value(), USER_BLOCKED);
