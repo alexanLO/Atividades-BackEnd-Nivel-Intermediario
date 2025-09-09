@@ -918,11 +918,219 @@ CREATE TABLE user_permissions (
 - Garantir que os erros retornam JSON com mensagem clara (não apenas status code).
 - Medir cobertura dos testes (Jacoco) e tentar bater >80% só em código útil (sem getters/setters).
 
-## 👉 Esse desafio cobre:
+## 👉 Esse desafio cobre
 
 - Mockito (mock, spy, captor)
 - JUnit 5 (parametrizado, exceções)
 - MockMvc (teste de endpoints REST)
 - H2 em memória (sem containers, rápido e isolado).
+
+# 🏆 Desafio – Docker & Docker Compose no Gerenciamento de Usuários
+
+## 🚀 Parte 1 – Dockerizar o Backend
+
+### 🎯 Objetivo
+
+Criar um Dockerfile que permita rodar seu projeto Spring Boot em um container sem usar banco de dados ainda.
+
+### 📝 Tarefas
+
+- Na raiz do seu projeto, crie um arquivo chamado Dockerfile.
+
+- Escreva as instruções para:
+  - Usar uma imagem base Java 17 (ex: eclipse-temurin:17-jdk).
+  - Copiar o target/*.jar gerado pelo Maven/Gradle.
+  - Expor a porta 9090 (já que seu projeto roda nela).
+  - Rodar o .jar.
+
+- Rode os comandos no terminal:
+  - mvn clean package -DskipTests
+  - docker build -t user-management-backend .
+  - docker run -p 9090:9090 user-management-backend
+
+- Acesse no navegador:
+
+**<http://localhost:9090/v1/users>**
+
+ou outro endpoint da sua API.
+
+### 📌 Critério de sucesso
+
+- O container sobe corretamente.
+- Você consegue bater em um endpoint da API sem precisar rodar mvn spring-boot:run local.
+
+## 🛢️ Parte 2 – Subir o Oracle XE em container
+
+### 🎯 Objetivo
+
+- Ter um container Oracle XE rodando.
+- Configurar usuário, senha e banco.
+- Validar a conexão via cliente SQL (DBeaver ou SQL*Plus).
+
+### 📝 Passos
+
+**1️⃣ Baixar e rodar a imagem Oracle XE**
+
+- Use a imagem oficial leve do Oracle XE:
+
+  ```powershell
+  - docker run -d --name oracle-db -p 1521:1521 -e ORACLE_PASSWORD=oracle gvenzl/oracle-xe
+  ```
+
+  - --name oracle-db → nome do container
+  - -p 1521:1521 → mapeia a porta padrão do Oracle
+  - -e ORACLE_PASSWORD=oracle → senha do usuário system
+  - gvenzl/oracle-xe → imagem oficial no Docker Hub
+
+**2️⃣ Validar se o Oracle está rodando**
+
+```powershell
+docker ps
+```
+
+Você deve ver algo como:
+
+CONTAINER ID   IMAGE               PORTS                    NAMES
+xxxxxxx        gvenzl/oracle-xe   0.0.0.0:1521->1521/tcp   oracle-db
+
+**3️⃣ Conectar via cliente SQL**
+
+Use DBeaver ou SQL*Plus:
+
+Host: localhost
+
+Porta: 1521
+
+Service name / SID: XEPDB1
+
+User: system
+
+Password: oracle
+
+Pergunta de validação da Parte 2:
+“Consigo logar no Oracle do container usando o DBeaver com a senha que defini?” ✅
+
+**4️⃣ Persistência (opcional nessa etapa)**
+
+Se quiser garantir que os dados não se percam ao desligar o container:
+
+docker run -d --name oracle-db -p 1521:1521 -e ORACLE_PASSWORD=oracle -v oracle-data:/opt/oracle/oradata gvenzl/oracle-xe
+
+Cria um volume Docker oracle-data para salvar os dados.
+
+## 🐳 Parte 3 – Docker Compose
+
+### 🎯 Objetivo
+
+Orquestrar backend Spring Boot + Oracle XE usando Docker Compose, garantindo que:
+
+- O backend consiga se conectar ao Oracle containerizado.
+- Ambos os containers rodem juntos sem conflitos de porta.
+
+### 📝 Tarefas que você precisa fazer
+
+Criar o arquivo docker-compose.yml na raiz do projeto.
+
+- Configurar o serviço Oracle XE:
+  - Escolha uma porta livre (ex.: 1522 se a 1521 estiver ocupada).
+  - Configure senha do usuário (ex.: ORACLE_PASSWORD=oracle).
+  - Crie um volume para persistir os dados.
+
+- Configurar o serviço backend:
+  - Use o Dockerfile que você fez na Parte 1.
+
+- Configure variáveis de ambiente para o Spring Boot conectar ao Oracle:
+  - SPRING_DATASOURCE_URL
+  - SPRING_DATASOURCE_USERNAME
+  - SPRING_DATASOURCE_PASSWORD
+  - Use depends_on para garantir que o backend só tente subir depois do Oracle.
+
+- Subir os containers juntos:
+  - docker-compose up --build
+
+- Validar:
+
+  - Acesse o endpoint da API (http://localhost:9090/v1/users)
+  - Confirme que o backend conseguiu se conectar ao Oracle.
+
+**🔹 Perguntas de validação da Parte 3**
+
+- “O backend subiu corretamente dentro do container?”
+- “O Oracle subiu corretamente no container e está acessível pela porta que você definiu?”
+- “O backend conseguiu se conectar ao Oracle usando o nome do serviço no Compose?”
+
+### 💡 Dica: Se encontrar erro de conexão do Spring Boot, verifique:
+
+- Nome do serviço Oracle no Compose (oracle-db)
+- Porta interna (sempre 1521) e externa (pode ser outra)
+- Variáveis de ambiente do backend
+
+## Parte 4 – Persistência
+
+### 🎯 Objetivo
+
+Garantir que os dados do banco Oracle não se percam ao desligar ou remover containers.
+
+**Passos sugeridos** 
+
+1. Configurar volumes no docker-compose.yml
+
+- Use um volume nomeado para armazenar os dados do Oracle.
+- Garanta que o diretório de dados do Oracle dentro do container esteja mapeado para esse volume.
+
+2. Testar persistência
+
+- Suba os containers:
+
+```bash
+docker-compose up -d
+```
+
+- Crie um usuário no sistema (pode ser via API ou aplicação web).
+
+3. Desligar containers
+
+- Pare e remova os containers (sem remover volumes):
+```bash
+docker-compose down
+```
+
+- Atenção: não use -v, porque isso apaga os volumes.
+
+4. Subir novamente
+
+- Suba os containers de novo:
+
+```bash
+docker-compose up -d
+```
+
+- Verifique se o usuário criado anteriormente ainda existe no sistema.
+
+### ✅ Critério de validação
+
+- Pergunta que você deve ser capaz de responder após o teste:
+  “O usuário que criei antes ainda existe depois de reiniciar os containers?” 
+- Se sim → persistência funcionando corretamente.
+- Se não → ajuste o volume do Oracle.'
+
+## Parte 5 – Incrementos (nível avançado)
+
+**O que precisa fazer:**
+
+1. Flyway + Oracle
+
+- Configurar o Flyway no seu backend para rodar as migrações automaticamente dentro do Oracle containerizado.
+- Criar pelo menos um V1__create_table.sql na pasta resources/db/migration/.
+
+2. Healthcheck nos containers
+
+- Já existe um healthcheck no oracle-db, mas agora você precisa colocar também no backend, garantindo que só fique healthy depois que a aplicação Spring Boot subir.
+
+3. Push para Docker Hub (opcional)
+
+- Criar um repositório no Docker Hub.
+- Fazer build da sua imagem do backend.
+- Dar docker push <seu-usuario>/<nome-da-imagem>:tag.
 
 # proxima atividade

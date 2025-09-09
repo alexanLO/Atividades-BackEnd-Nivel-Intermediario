@@ -67,9 +67,12 @@ jwt:
 #================================
 spring:
   datasource:
-    url: jdbc:oracle:thin:@localhost:1521/XEPDB1
-    username: admin
-    password: admin
+    # url: jdbc:oracle:thin:@localhost:1521/XEPDB1
+    # username: admin
+    # password: admin
+    url: ${SPRING_DATASOURCE_URL}
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: oracle.jdbc.OracleDriver
 
 #==============================
@@ -77,7 +80,7 @@ spring:
 #==============================
   jpa:
       hibernate:
-        ddl-auto: validate # Atualiza o esquema do banco de dados automaticamente
+        ddl-auto: update # Atualiza o esquema do banco de dados automaticamente
         show-sql: true # Exibe as consultas SQL no console
       properties:
         hibernate:
@@ -94,8 +97,11 @@ spring:
 # Configuração do Flyway
 #==============================
   flyway:
-    enabled: true
-    url: jdbc:oracle:thin:@localhost:1521/XEPDB1
-    user: admin
-    password: admin
+    enabled: false
+    # url: jdbc:oracle:thin:@localhost:1521/XEPDB1
+    # user: admin
+    # password: admin
+    url: ${SPRING_DATASOURCE_URL}
+    user: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
     baseline-on-migrate: true
