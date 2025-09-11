@@ -7,7 +7,7 @@ services:
     ports:
       - "1522:1521"
     environment:
-      ORACLE_PASSWORD: oracle
+      ORACLE_PASSWORD: admin
     volumes:
       - oracle-data:/opt/oracle/oradata
     healthcheck:
@@ -30,8 +30,8 @@ services:
       - "9090:9090"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:oracle:thin:@oracle-db:1521/XEPDB1
-      - SPRING_DATASOURCE_USERNAME=system
-      - SPRING_DATASOURCE_PASSWORD=oracle
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin
     healthcheck:
       test: ["CMD-SHELL", "curl -f http://localhost:9090/actuator/health || exit 1"]
       interval: 10s

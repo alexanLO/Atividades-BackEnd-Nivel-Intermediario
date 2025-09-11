@@ -48,5 +48,20 @@
     "name": "jwt.security.token.secret",
     "type": "java.lang.String",
     "description": "A description for 'jwt.security.token.secret'"
+  },
+  {
+    "name": "springdoc.management.Endpoints.web.exposure.include",
+    "type": "java.lang.String",
+    "description": "A description for 'springdoc.management.Endpoints.web.exposure.include'"
+  },
+  {
+    "name": "springdoc.management.endpoints.web.exposure.include",
+    "type": "java.lang.String",
+    "description": "A description for 'springdoc.management.endpoints.web.exposure.include'"
+  },
+  {
+    "name": "springdoc.management.server.port",
+    "type": "java.lang.String",
+    "description": "A description for 'springdoc.management.server.port'"
   }
 ]}

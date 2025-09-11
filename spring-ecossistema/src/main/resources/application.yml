@@ -1,5 +1,5 @@
 # ===============================
-# Configuração da aplicação
+# Aplicação Config
 # ===============================
 info:
   app:
@@ -8,13 +8,13 @@ info:
     version: "@project.version@"
 
 # ===============================
-# Configuração do servidor
+# Servidor Config
 # ===============================
 server:
   port: 9090 # Porta onde o servidor irá rodar
 
 # ===============================
-# Configuração de logs
+# logs Config
 # ===============================
 logging: # Nível de log para as classes do Spring Framework (INFO, DEBUG, ERROR, etc.)
   level:
@@ -23,7 +23,7 @@ logging: # Nível de log para as classes do Spring Framework (INFO, DEBUG, ERROR
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
 
 #=============================================
-# Configuração do Actuator
+# Actuator Config
 #=============================================
 management: 
   endpoints:
@@ -48,7 +48,7 @@ management:
 
 
 # ===============================
-# Configuração do security JWT
+# Security JWT Config
 # ===============================
 jwt:
   security:
@@ -63,20 +63,20 @@ jwt:
         USER
 
 # ===============================
-# Configuração do Banco de Dados Oracle
+# Banco de Dados Oracle Config
 #================================
 spring:
   datasource:
-    # url: jdbc:oracle:thin:@localhost:1521/XEPDB1
-    # username: admin
-    # password: admin
-    url: ${SPRING_DATASOURCE_URL}
-    username: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    url: jdbc:oracle:thin:@localhost:1521/XEPDB1
+    username: admin
+    password: admin
+    #url: ${SPRING_DATASOURCE_URL}
+    # username: ${SPRING_DATASOURCE_USERNAME}
+    # password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: oracle.jdbc.OracleDriver
 
 #==============================
-# Configuração do JPA e Hibernate
+# JPA e Hibernate Config
 #==============================
   jpa:
       hibernate:
@@ -94,14 +94,29 @@ spring:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl # Estratégia de nomenclatura física padrão do Hibernate
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl # Estratégia de nomenclatura implícita legada do JPA
 #==============================
-# Configuração do Flyway
+# Flyway Config
 #==============================
   flyway:
-    enabled: false
-    # url: jdbc:oracle:thin:@localhost:1521/XEPDB1
-    # user: admin
-    # password: admin
-    url: ${SPRING_DATASOURCE_URL}
-    user: ${SPRING_DATASOURCE_USERNAME}
-    password: ${SPRING_DATASOURCE_PASSWORD}
+    enabled: true
+    url: jdbc:oracle:thin:@localhost:1521/XEPDB1
+    user: admin
+    password: admin
+    #url: ${SPRING_DATASOURCE_URL}
+    # user: ${SPRING_DATASOURCE_USERNAME}
+    # password: ${SPRING_DATASOURCE_PASSWORD}
     baseline-on-migrate: true
+#==============================
+# Swagger Config
+#==============================
+#Uma vez habilitado, você também poderá ver os endpoints springdoc-openapi em: (host e porta dependem de suas configurações) - http://serverName:managementPort/actuator
+# springdoc:
+#   show-actuator: true # Propriedade para adicionar o spring-boot-actuator endpoints
+#   use-management-port: true
+#   # Esta propriedade permite que os pontos de extremidade openapi e swagger-ui sejam expostos abaixo do caminho base do atuador.
+#   management:
+#     server:
+#       port: 9090
+#     endpoints:
+#       web:
+#         exposure:
+#           include: openapi, swagger-ui

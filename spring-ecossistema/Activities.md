@@ -1133,4 +1133,102 @@ docker-compose up -d
 - Fazer build da sua imagem do backend.
 - Dar docker push <seu-usuario>/<nome-da-imagem>:tag.
 
+#🚀 Desafio Swagger/OpenAPI
+🎯 Objetivo
+
+Documentar a API de gerenciamento de usuários usando Swagger (Springdoc OpenAPI), tornando possível visualizar os endpoints e testá-los via UI.
+
+📝 Tarefas
+
+1. Adicionar dependência
+
+- Inclua no pom.xml a dependência do springdoc-openapi-ui.
+
+2. Configuração inicial
+
+- Crie uma classe de configuração OpenApiConfig.
+- Nela, defina informações básicas da API (nome, versão, descrição, contato).
+
+3. Documentar os endpoints
+
+- Adicione anotações como:
+  - @Operation (para título/descrição de cada método).
+  - @ApiResponse (para documentar possíveis respostas).
+  - @Parameter (para documentar parâmetros de entrada).
+
+**Exemplo de desafio:**
+
+- Documentar o endpoint de login com os possíveis retornos (200 OK, 401 Unauthorized, 403 Forbidden).
+- Documentar o endpoint de listar usuários com a descrição da paginação.
+
+4. Testar no navegador
+  
+- Rode o projeto.
+- Abra no navegador:
+
+```bash
+  http://localhost:9090/swagger-ui.html
+```
+  ou
+
+```bash
+  http://localhost:9090/swagger-ui/index.html
+```
+
+## 📌 Critérios de sucesso
+
+- A UI do Swagger abre no navegador.
+- Os endpoints aparecem documentados.
+- Pelo menos 2 endpoints possuem documentação detalhada (@Operation, @ApiResponse).
+
+# 🏆 Desafio Swagger/OpenAPI
+
+## 🎯 Objetivo
+
+Documentar a API de gerenciamento de usuários usando Swagger (Springdoc OpenAPI), tornando possível visualizar os endpoints e testá-los via UI.
+
+## 📝 Tarefas
+
+1. Adicionar dependência
+
+- Inclua no pom.xml a dependência do springdoc-openapi-ui.
+
+2. Configuração inicial
+- Crie uma classe de configuração OpenApiConfig.
+- Nela, defina informações básicas da API (nome, versão, descrição, contato).
+
+3. Documentar os endpoints
+
+- Adicione anotações como:
+
+  - @Operation (para título/descrição de cada método).
+  - @ApiResponse (para documentar possíveis respostas).
+  - @Parameter (para documentar parâmetros de entrada).
+
+**Exemplo de desafio:**
+
+- Documentar o endpoint de login com os possíveis retornos (200 OK, 401 Unauthorized, 403 Forbidden).
+- Documentar o endpoint de listar usuários com a descrição da paginação.
+
+4. Testar no navegador
+
+- Rode o projeto.
+- Abra no navegador:
+
+  ```bash
+  http://localhost:9090/swagger-ui.html
+  ```
+
+  ou
+
+  ```bash
+  http://localhost:9090/swagger-ui/index.html
+  ```
+
+### 📌 Critérios de sucesso
+
+- A UI do Swagger abre no navegador.
+- Os endpoints aparecem documentados.
+- Pelo menos 2 endpoints possuem documentação detalhada (@Operation, @ApiResponse).
+
 # proxima atividade

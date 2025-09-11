@@ -33,6 +33,11 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/v1/users/**").permitAll()
                         .requestMatchers("/v1/users/**").hasRole("ADMIN")
                         .requestMatchers("/v1/profiles/**").permitAll()
+                        .requestMatchers( //* Como é só para documentação irei deixar sem security */
+                                "/v3/api-docs/**",
+                                "/swagger-ui/**",
+                                "/swagger-ui.html")
+                        .permitAll()
                         .anyRequest().authenticated())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
